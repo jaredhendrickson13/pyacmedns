@@ -1,1037 +1,45 @@
 <!doctype html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-
-    <title>simple_acme_dns API documentation</title>
-    <meta name="description" content="simple_acme_dns is a Python ACME client specifically tailored to the DNS-01 challenge. This makes it..." />
-
-  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
-  
-  <style type="text/css">
-  
-* {
-  box-sizing: border-box;
-}
-/*! normalize.css v1.1.1 | MIT License | git.io/normalize */
-
-/* ==========================================================================
-   HTML5 display definitions
-   ========================================================================== */
-
-/**
- * Correct `block` display not defined in IE 6/7/8/9 and Firefox 3.
- */
-
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-main,
-nav,
-section,
-summary {
-    display: block;
-}
-
-/**
- * Correct `inline-block` display not defined in IE 6/7/8/9 and Firefox 3.
- */
-
-audio,
-canvas,
-video {
-    display: inline-block;
-    *display: inline;
-    *zoom: 1;
-}
-
-/**
- * Prevent modern browsers from displaying `audio` without controls.
- * Remove excess height in iOS 5 devices.
- */
-
-audio:not([controls]) {
-    display: none;
-    height: 0;
-}
-
-/**
- * Address styling not present in IE 7/8/9, Firefox 3, and Safari 4.
- * Known issue: no IE 6 support.
- */
-
-[hidden] {
-    display: none;
-}
-
-/* ==========================================================================
-   Base
-   ========================================================================== */
-
-/**
- * 1. Prevent system color scheme's background color being used in Firefox, IE,
- *    and Opera.
- * 2. Prevent system color scheme's text color being used in Firefox, IE, and
- *    Opera.
- * 3. Correct text resizing oddly in IE 6/7 when body `font-size` is set using
- *    `em` units.
- * 4. Prevent iOS text size adjust after orientation change, without disabling
- *    user zoom.
- */
-
-html {
-    background: #fff; /* 1 */
-    color: #000; /* 2 */
-    font-size: 100%; /* 3 */
-    -webkit-text-size-adjust: 100%; /* 4 */
-    -ms-text-size-adjust: 100%; /* 4 */
-}
-
-/**
- * Address `font-family` inconsistency between `textarea` and other form
- * elements.
- */
-
-html,
-button,
-input,
-select,
-textarea {
-    font-family: sans-serif;
-}
-
-/**
- * Address margins handled incorrectly in IE 6/7.
- */
-
-body {
-    margin: 0;
-}
-
-/* ==========================================================================
-   Links
-   ========================================================================== */
-
-/**
- * Address `outline` inconsistency between Chrome and other browsers.
- */
-
-a:focus {
-    outline: thin dotted;
-}
-
-/**
- * Improve readability when focused and also mouse hovered in all browsers.
- */
-
-a:active,
-a:hover {
-    outline: 0;
-}
-
-/* ==========================================================================
-   Typography
-   ========================================================================== */
-
-/**
- * Address font sizes and margins set differently in IE 6/7.
- * Address font sizes within `section` and `article` in Firefox 4+, Safari 5,
- * and Chrome.
- */
-
-h1 {
-    font-size: 2em;
-    margin: 0.67em 0;
-}
-
-h2 {
-    font-size: 1.5em;
-    margin: 0.83em 0;
-}
-
-h3 {
-    font-size: 1.17em;
-    margin: 1em 0;
-}
-
-h4 {
-    font-size: 1em;
-    margin: 1.33em 0;
-}
-
-h5 {
-    font-size: 0.83em;
-    margin: 1.67em 0;
-}
-
-h6 {
-    font-size: 0.67em;
-    margin: 2.33em 0;
-}
-
-/**
- * Address styling not present in IE 7/8/9, Safari 5, and Chrome.
- */
-
-abbr[title] {
-    border-bottom: 1px dotted;
-}
-
-/**
- * Address style set to `bolder` in Firefox 3+, Safari 4/5, and Chrome.
- */
-
-b,
-strong {
-    font-weight: bold;
-}
-
-blockquote {
-    margin: 1em 40px;
-}
-
-/**
- * Address styling not present in Safari 5 and Chrome.
- */
-
-dfn {
-    font-style: italic;
-}
-
-/**
- * Address differences between Firefox and other browsers.
- * Known issue: no IE 6/7 normalization.
- */
-
-hr {
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-    height: 0;
-}
-
-/**
- * Address styling not present in IE 6/7/8/9.
- */
-
-mark {
-    background: #ff0;
-    color: #000;
-}
-
-/**
- * Address margins set differently in IE 6/7.
- */
-
-p,
-pre {
-    margin: 1em 0;
-}
-
-/**
- * Correct font family set oddly in IE 6, Safari 4/5, and Chrome.
- */
-
-code,
-kbd,
-pre,
-samp {
-    font-family: monospace, serif;
-    _font-family: 'courier new', monospace;
-    font-size: 1em;
-}
-
-/**
- * Improve readability of pre-formatted text in all browsers.
- */
-
-pre {
-    white-space: pre;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-}
-
-/**
- * Address CSS quotes not supported in IE 6/7.
- */
-
-q {
-    quotes: none;
-}
-
-/**
- * Address `quotes` property not supported in Safari 4.
- */
-
-q:before,
-q:after {
-    content: '';
-    content: none;
-}
-
-/**
- * Address inconsistent and variable font size in all browsers.
- */
-
-small {
-    font-size: 80%;
-}
-
-/**
- * Prevent `sub` and `sup` affecting `line-height` in all browsers.
- */
-
-sub,
-sup {
-    font-size: 75%;
-    line-height: 0;
-    position: relative;
-    vertical-align: baseline;
-}
-
-sup {
-    top: -0.5em;
-}
-
-sub {
-    bottom: -0.25em;
-}
-
-/* ==========================================================================
-   Lists
-   ========================================================================== */
-
-/**
- * Address margins set differently in IE 6/7.
- */
-
-dl,
-menu,
-ol,
-ul {
-    margin: 1em 0;
-}
-
-dd {
-    margin: 0 0 0 40px;
-}
-
-/**
- * Address paddings set differently in IE 6/7.
- */
-
-menu,
-ol,
-ul {
-    padding: 0 0 0 40px;
-}
-
-/**
- * Correct list images handled incorrectly in IE 7.
- */
-
-nav ul,
-nav ol {
-    list-style: none;
-    list-style-image: none;
-}
-
-/* ==========================================================================
-   Embedded content
-   ========================================================================== */
-
-/**
- * 1. Remove border when inside `a` element in IE 6/7/8/9 and Firefox 3.
- * 2. Improve image quality when scaled in IE 7.
- */
-
-img {
-    border: 0; /* 1 */
-    -ms-interpolation-mode: bicubic; /* 2 */
-}
-
-/**
- * Correct overflow displayed oddly in IE 9.
- */
-
-svg:not(:root) {
-    overflow: hidden;
-}
-
-/* ==========================================================================
-   Figures
-   ========================================================================== */
-
-/**
- * Address margin not present in IE 6/7/8/9, Safari 5, and Opera 11.
- */
-
-figure {
-    margin: 0;
-}
-
-/* ==========================================================================
-   Forms
-   ========================================================================== */
-
-/**
- * Correct margin displayed oddly in IE 6/7.
- */
-
-form {
-    margin: 0;
-}
-
-/**
- * Define consistent border, margin, and padding.
- */
-
-fieldset {
-    border: 1px solid #c0c0c0;
-    margin: 0 2px;
-    padding: 0.35em 0.625em 0.75em;
-}
-
-/**
- * 1. Correct color not being inherited in IE 6/7/8/9.
- * 2. Correct text not wrapping in Firefox 3.
- * 3. Correct alignment displayed oddly in IE 6/7.
- */
-
-legend {
-    border: 0; /* 1 */
-    padding: 0;
-    white-space: normal; /* 2 */
-    *margin-left: -7px; /* 3 */
-}
-
-/**
- * 1. Correct font size not being inherited in all browsers.
- * 2. Address margins set differently in IE 6/7, Firefox 3+, Safari 5,
- *    and Chrome.
- * 3. Improve appearance and consistency in all browsers.
- */
-
-button,
-input,
-select,
-textarea {
-    font-size: 100%; /* 1 */
-    margin: 0; /* 2 */
-    vertical-align: baseline; /* 3 */
-    *vertical-align: middle; /* 3 */
-}
-
-/**
- * Address Firefox 3+ setting `line-height` on `input` using `!important` in
- * the UA stylesheet.
- */
-
-button,
-input {
-    line-height: normal;
-}
-
-/**
- * Address inconsistent `text-transform` inheritance for `button` and `select`.
- * All other form control elements do not inherit `text-transform` values.
- * Correct `button` style inheritance in Chrome, Safari 5+, and IE 6+.
- * Correct `select` style inheritance in Firefox 4+ and Opera.
- */
-
-button,
-select {
-    text-transform: none;
-}
-
-/**
- * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
- *    and `video` controls.
- * 2. Correct inability to style clickable `input` types in iOS.
- * 3. Improve usability and consistency of cursor style between image-type
- *    `input` and others.
- * 4. Remove inner spacing in IE 7 without affecting normal text inputs.
- *    Known issue: inner spacing remains in IE 6.
- */
-
-button,
-html input[type="button"], /* 1 */
-input[type="reset"],
-input[type="submit"] {
-    -webkit-appearance: button; /* 2 */
-    cursor: pointer; /* 3 */
-    *overflow: visible;  /* 4 */
-}
-
-/**
- * Re-set default cursor for disabled elements.
- */
-
-button[disabled],
-html input[disabled] {
-    cursor: default;
-}
-
-/**
- * 1. Address box sizing set to content-box in IE 8/9.
- * 2. Remove excess padding in IE 8/9.
- * 3. Remove excess padding in IE 7.
- *    Known issue: excess padding remains in IE 6.
- */
-
-input[type="checkbox"],
-input[type="radio"] {
-    box-sizing: border-box; /* 1 */
-    padding: 0; /* 2 */
-    *height: 13px; /* 3 */
-    *width: 13px; /* 3 */
-}
-
-/**
- * 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome.
- * 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome
- *    (include `-moz` to future-proof).
- */
-
-input[type="search"] {
-    -webkit-appearance: textfield; /* 1 */
-    -moz-box-sizing: content-box;
-    -webkit-box-sizing: content-box; /* 2 */
-    box-sizing: content-box;
-}
-
-/**
- * Remove inner padding and search cancel button in Safari 5 and Chrome
- * on OS X.
- */
-
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration {
-    -webkit-appearance: none;
-}
-
-/**
- * Remove inner padding and border in Firefox 3+.
- */
-
-button::-moz-focus-inner,
-input::-moz-focus-inner {
-    border: 0;
-    padding: 0;
-}
-
-/**
- * 1. Remove default vertical scrollbar in IE 6/7/8/9.
- * 2. Improve readability and alignment in all browsers.
- */
-
-textarea {
-    overflow: auto; /* 1 */
-    vertical-align: top; /* 2 */
-}
-
-/* ==========================================================================
-   Tables
-   ========================================================================== */
-
-/**
- * Remove most spacing between table cells.
- */
-
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-
-  </style>
-
-  <style type="text/css">
-  
-  html, body {
-    margin: 0;
-    padding: 0;
-    min-height: 100%;
-  }
-  body {
-    background: #fff;
-    font-family: "Source Sans Pro", "Helvetica Neueue", Helvetica, sans;
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 1.6em;
-  }
-  #content {
-    width: 70%;
-    max-width: 850px;
-    float: left;
-    padding: 30px 60px;
-    border-left: 1px solid #ddd;
-  }
-  #sidebar {
-    width: 25%;
-    float: left;
-    padding: 30px;
-    overflow: hidden;
-  }
-  #nav {
-    font-size: 130%;
-    margin: 0 0 15px 0;
-  }
-
-  #top {
-    display: block;
-    position: fixed;
-    bottom: 5px;
-    left: 5px;
-    font-size: .85em;
-    text-transform: uppercase;
-  }
-
-  #footer {
-    font-size: .75em;
-    padding: 5px 30px;
-    border-top: 1px solid #ddd;
-    text-align: right;
-  }
-    #footer p {
-      margin: 0 0 0 30px;
-      display: inline-block;
-    }
-
-  h1, h2, h3, h4, h5 {
-    font-weight: 300;
-  }
-  h1 {
-    font-size: 2.5em;
-    line-height: 1.1em;
-    margin: 0 0 .50em 0;
-  }
-
-  h2 {
-    font-size: 1.75em;
-    margin: 1em 0 .50em 0;
-  }
-
-  h3 {
-    margin: 25px 0 10px 0;
-  }
-
-  h4 {
-    margin: 0;
-    font-size: 105%;
-  }
-
-  a {
-    color: #058;
-    text-decoration: none;
-    transition: color .3s ease-in-out;
-  }
-
-  a:hover {
-    color: #e08524;
-    transition: color .3s ease-in-out;
-  }
-
-  pre, code, .mono, .name {
-    font-family: "Ubuntu Mono", "Cousine", "DejaVu Sans Mono", monospace;
-  }
-
-  .title .name {
-    font-weight: bold;
-  }
-  .section-title {
-    margin-top: 2em;
-  }
-  .ident {
-    color: #900;
-  }
-
-  code {
-    background: #f9f9f9;
-  } 
-
-  pre {
-    background: #fefefe;
-    border: 1px solid #ddd;
-    box-shadow: 2px 2px 0 #f3f3f3;
-    margin: 0 30px;
-    padding: 15px 30px;
-  }
-
-  .codehilite {
-    margin: 0 30px 10px 30px;
-  }
-
-    .codehilite pre {
-      margin: 0;
-    }
-    .codehilite .err { background: #ff3300; color: #fff !important; } 
-
-  table#module-list {
-    font-size: 110%;
-  }
-
-    table#module-list tr td:first-child {
-      padding-right: 10px;
-      white-space: nowrap;
-    }
-
-    table#module-list td {
-      vertical-align: top;
-      padding-bottom: 8px;
-    }
-
-      table#module-list td p {
-        margin: 0 0 7px 0;
-      }
-
-  .def {
-    display: table;
-  }
-
-    .def p {
-      display: table-cell;
-      vertical-align: top;
-      text-align: left;
-    }
-
-    .def p:first-child {
-      white-space: nowrap;
-    }
-
-    .def p:last-child {
-      width: 100%;
-    }
-
-
-  #index {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-    ul#index .class_name {
-      /* font-size: 110%; */
-      font-weight: bold;
-    }
-    #index ul {
-      margin: 0;
-    }
-
-  .item {
-    margin: 0 0 15px 0;
-  }
-
-    .item .class {
-      margin: 0 0 25px 30px;
-    }
-
-      .item .class ul.class_list {
-        margin: 0 0 20px 0;
-      }
-
-    .item .name {
-      background: #fafafa;
-      margin: 0;
-      font-weight: bold;
-      padding: 5px 10px;
-      border-radius: 3px;
-      display: inline-block;
-      min-width: 40%;
-    }
-      .item .name:hover {
-        background: #f6f6f6;
-      }
-
-    .item .empty_desc {
-      margin: 0 0 5px 0;
-      padding: 0;
-    }
-
-    .item .inheritance {
-      margin: 3px 0 0 30px;
-    }
-
-    .item .inherited {
-      color: #666;
-    }
-
-    .item .desc {
-      padding: 0 8px;
-      margin: 0;
-    }
-
-      .item .desc p {
-        margin: 0 0 10px 0;
-      }
-
-    .source_cont {
-      margin: 0;
-      padding: 0;
-    }
-
-    .source_link a {
-      background: #ffc300;
-      font-weight: 400;
-      font-size: .75em;
-      text-transform: uppercase;
-      color: #fff;
-      text-shadow: 1px 1px 0 #f4b700;
-      
-      padding: 3px 8px;
-      border-radius: 2px;
-      transition: background .3s ease-in-out;
-    }
-      .source_link a:hover {
-        background: #FF7200;
-        text-shadow: none;
-        transition: background .3s ease-in-out;
-      }
-
-    .source {
-      display: none;
-      max-height: 600px;
-      overflow-y: scroll;
-      margin-bottom: 15px;
-    }
-
-      .source .codehilite {
-        margin: 0;
-      }
-
-  .desc h1, .desc h2, .desc h3 {
-    font-size: 100% !important;
-  }
-  .clear {
-    clear: both;
-  }
-
-  @media all and (max-width: 950px) {
-    #sidebar {
-      width: 35%;
-    }
-    #content {
-      width: 65%;
-    }
-  }
-  @media all and (max-width: 650px) {
-    #top {
-      display: none;
-    }
-    #sidebar {
-      float: none;
-      width: auto;
-    }
-    #content {
-      float: none;
-      width: auto;
-      padding: 30px;
-    }
-
-    #index ul {
-      padding: 0;
-      margin-bottom: 15px;
-    }
-    #index ul li {
-      display: inline-block;
-      margin-right: 30px;
-    }
-    #footer {
-      text-align: left;
-    }
-    #footer p {
-      display: block;
-      margin: inherit;
-    }
-  }
-
-  /*****************************/
-
-  </style>
-
-
-  <style type="text/css">
-  
-/* ==========================================================================
-   EXAMPLE Media Queries for Responsive Design.
-   These examples override the primary ('mobile first') styles.
-   Modify as content requires.
-   ========================================================================== */
-
-@media only screen and (min-width: 35em) {
-    /* Style adjustments for viewports that meet the condition */
-}
-
-@media print,
-       (-o-min-device-pixel-ratio: 5/4),
-       (-webkit-min-device-pixel-ratio: 1.25),
-       (min-resolution: 120dpi) {
-    /* Style adjustments for high resolution devices */
-}
-
-/* ==========================================================================
-   Print styles.
-   Inlined to avoid required HTTP connection: h5bp.com/r
-   ========================================================================== */
-
-@media print {
-    * {
-        background: transparent !important;
-        color: #000 !important; /* Black prints faster: h5bp.com/s */
-        box-shadow: none !important;
-        text-shadow: none !important;
-    }
-
-    a,
-    a:visited {
-        text-decoration: underline;
-    }
-
-    a[href]:after {
-        content: " (" attr(href) ")";
-    }
-
-    abbr[title]:after {
-        content: " (" attr(title) ")";
-    }
-
-    /*
-     * Don't show links for images, or javascript/internal links
-     */
-
-    .ir a:after,
-    a[href^="javascript:"]:after,
-    a[href^="#"]:after {
-        content: "";
-    }
-
-    pre,
-    blockquote {
-        border: 1px solid #999;
-        page-break-inside: avoid;
-    }
-
-    thead {
-        display: table-header-group; /* h5bp.com/t */
-    }
-
-    tr,
-    img {
-        page-break-inside: avoid;
-    }
-
-    img {
-        max-width: 100% !important;
-    }
-
-    @page {
-        margin: 0.5cm;
-    }
-
-    p,
-    h2,
-    h3 {
-        orphans: 3;
-        widows: 3;
-    }
-
-    h2,
-    h3 {
-        page-break-after: avoid;
-    }
-}
-
-  </style>
-
-  <script type="text/javascript">
-  function toggle(id, $link) {
-    $node = document.getElementById(id);
-    if (!$node)
-    return;
-    if (!$node.style.display || $node.style.display == 'none') {
-    $node.style.display = 'block';
-    $link.innerHTML = 'Hide source &nequiv;';
-    } else {
-    $node.style.display = 'none';
-    $link.innerHTML = 'Show source &equiv;';
-    }
-  }
-  </script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>simple_acme_dns API documentation</title>
+<meta name="description" content="simple_acme_dns is a Python ACME client specifically tailored to the DNS-01 challenge. This makes it easy to manage ACME
+certificates and accounts …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
 </head>
 <body>
-<a href="#" id="top">Top</a>
-
-<div id="container">
-    
-  
-  <div id="sidebar">
-    <h1>Index</h1>
-    <ul id="index">
-
-
-    <li class="set"><h3><a href="#header-classes">Classes</a></h3>
-      <ul>
-        <li class="mono">
-        <span class="class_name"><a href="#simple_acme_dns.ACMEClient">ACMEClient</a></span>
-        
-          
-  <ul>
-    <li class="mono"><a href="#simple_acme_dns.ACMEClient.__init__">__init__</a></li>
-    <li class="mono"><a href="#simple_acme_dns.ACMEClient.check_dns_propagation">check_dns_propagation</a></li>
-    <li class="mono"><a href="#simple_acme_dns.ACMEClient.deactivate_account">deactivate_account</a></li>
-    <li class="mono"><a href="#simple_acme_dns.ACMEClient.export_account">export_account</a></li>
-    <li class="mono"><a href="#simple_acme_dns.ACMEClient.export_account_to_file">export_account_to_file</a></li>
-    <li class="mono"><a href="#simple_acme_dns.ACMEClient.generate_csr">generate_csr</a></li>
-    <li class="mono"><a href="#simple_acme_dns.ACMEClient.generate_private_key">generate_private_key</a></li>
-    <li class="mono"><a href="#simple_acme_dns.ACMEClient.generate_private_key_and_csr">generate_private_key_and_csr</a></li>
-    <li class="mono"><a href="#simple_acme_dns.ACMEClient.load_account">load_account</a></li>
-    <li class="mono"><a href="#simple_acme_dns.ACMEClient.load_account_from_file">load_account_from_file</a></li>
-    <li class="mono"><a href="#simple_acme_dns.ACMEClient.new_account">new_account</a></li>
-    <li class="mono"><a href="#simple_acme_dns.ACMEClient.request_certificate">request_certificate</a></li>
-    <li class="mono"><a href="#simple_acme_dns.ACMEClient.request_verification_tokens">request_verification_tokens</a></li>
-    <li class="mono"><a href="#simple_acme_dns.ACMEClient.revoke_certificate">revoke_certificate</a></li>
-  </ul>
-
-        </li>
-      </ul>
-    </li>
-
-    <li class="set"><h3><a href="#header-submodules">Sub-modules</a></h3>
-      <ul>
-        <li class="mono"><a href="errors/index.html">simple_acme_dns.errors</a></li>
-        <li class="mono"><a href="tools/index.html">simple_acme_dns.tools</a></li>
-      </ul>
-    </li>
-    </ul>
-  </div>
-
-    <article id="content">
-      
-  
-
-  
-
-
-  <header id="section-intro">
-  <h1 class="title"><span class="name">simple_acme_dns</span> module</h1>
-  <p>simple_acme_dns is a Python ACME client specifically tailored to the DNS-01 challenge. This makes it easy to manage ACME 
-certificates and accounts all within Python without the need for an external tool like <code>certbot</code>. Although this module 
+<main>
+<article id="content">
+<header>
+<h1 class="title">Package <code>simple_acme_dns</code></h1>
+</header>
+<section id="section-intro">
+<p>simple_acme_dns is a Python ACME client specifically tailored to the DNS-01 challenge. This makes it easy to manage ACME
+certificates and accounts all within Python without the need for an external tool like <code>certbot</code>. Although this module
 is intended for use with Let's Encrypt, it will support any CA utilizing the ACME protocol.</p>
-  
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-simple_acme_dns', this);">Show source &equiv;</a></p>
-  <div id="source-simple_acme_dns" class="source">
-    <pre><code># Copyright 2020 Jared Hendrickson
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># Copyright 2020 Jared Hendrickson
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
+# Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
 #    http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
+# distributed under the License is distributed on an &#34;AS IS&#34; BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
@@ -1055,15 +63,15 @@ from cryptography.hazmat.primitives.serialization import Encoding, PrivateFormat
 from . import errors
 from . import tools
 
-__doc__ = """
+__doc__ = &#34;&#34;&#34;
 simple_acme_dns is a Python ACME client specifically tailored to the DNS-01 challenge. This makes it easy to manage ACME 
 certificates and accounts all within Python without the need for an external tool like `certbot`. Although this module 
-is intended for use with Let's Encrypt, it will support any CA utilizing the ACME protocol. 
-"""
+is intended for use with Let&#39;s Encrypt, it will support any CA utilizing the ACME protocol. 
+&#34;&#34;&#34;
 
 
 class ACMEClient:
-    """
+    &#34;&#34;&#34;
     A basic ACME client object to interface with a CA using the ACME DNS-01 challenge.\n
     - :var `certificate` [`bytes`]: the PEM formatted certificate. This value is populated after successfully running
     the `request_certificate()` methood.\n
@@ -1071,12 +79,12 @@ class ACMEClient:
     the `generate_private_key()` method.\n
     - :var `csr` [`bytes`]: the PEM formatted certificate signing request. This value is populated after successfully
     running the `generate_csr()` method.\n
-    """
+    &#34;&#34;&#34;
 
     def __init__(
             self, domains=None, email=None, directory=None, nameservers=None, new_account=False, generate_csr=False
     ):
-        """
+        &#34;&#34;&#34;
         - :param `domains` [`list`]: FQDNs to list in the certificate (SANS).\n
         - :param `email` [`str`]: a valid email address to register new ACME accounts with.\n
         - :param `directory` [`str`]: the ACME directory URL.\n
@@ -1088,25 +96,25 @@ class ACMEClient:
 
         ## Example:\n
         ```python
-        >>> import simple_acme_dns
-        >>> client = simple_acme_dns.ACMEClient(
-        ...     domains=["test1.example.com", "test2.example.com"],
-        ...     email="example@example.com",
-        ...     directory="https://acme-staging-v02.api.letsencrypt.org/directory",
-        ...     nameservers=["8.8.8.8", "1.1.1.1"],
+        &gt;&gt;&gt; import simple_acme_dns
+        &gt;&gt;&gt; client = simple_acme_dns.ACMEClient(
+        ...     domains=[&#34;test1.example.com&#34;, &#34;test2.example.com&#34;],
+        ...     email=&#34;example@example.com&#34;,
+        ...     directory=&#34;https://acme-staging-v02.api.letsencrypt.org/directory&#34;,
+        ...     nameservers=[&#34;8.8.8.8&#34;, &#34;1.1.1.1&#34;],
         ...     new_account=True,
         ...     generate_csr=True
         ... )
         ```
 
-        """
-        self.DNS_LABEL = '_acme-challenge'
+        &#34;&#34;&#34;
+        self.DNS_LABEL = &#39;_acme-challenge&#39;
         self.domains = domains if domains else []
         self.email = email
         self.directory = directory
-        self.certificate = ''.encode()
-        self.private_key = ''.encode()
-        self.csr = ''.encode()
+        self.certificate = &#39;&#39;.encode()
+        self.private_key = &#39;&#39;.encode()
+        self.csr = &#39;&#39;.encode()
         self.verification_tokens = []
         self.account_key = None
         self.account = None
@@ -1131,8 +139,8 @@ class ACMEClient:
             self.generate_private_key_and_csr()
 
     def generate_csr(self):
-        """
-        Generates a new CSR using the object's `domains` and `private_key` values.\n
+        &#34;&#34;&#34;
+        Generates a new CSR using the object&#39;s `domains` and `private_key` values.\n
         - :return [`bytes`]: the encoded CSR PEM data string. This method will update the `csr` property of the object
         with the same value.\n
         - :raises `InvalidDomain`: when no valid `domains` are set.\n
@@ -1140,17 +148,17 @@ class ACMEClient:
 
         ## Example\n
         ```python
-        >>> client.generate_csr()
-        b'-----BEGIN CERTIFICATE REQUEST-----\\nMIHxMIGZAgECMAAwWTATBgckjkn...'
+        &gt;&gt;&gt; client.generate_csr()
+        b&#39;-----BEGIN CERTIFICATE REQUEST-----\\nMIHxMIGZAgECMAAwWTATBgckjkn...&#39;
         ```
-        """
+        &#34;&#34;&#34;
         self.__validate_domains__()
         self.__validate_private_key__()
         self.csr = crypto_util.make_csr(self.private_key, self.domains)
         return self.csr
 
-    def generate_private_key(self, key_type='ec256'):
-        """
+    def generate_private_key(self, key_type=&#39;ec256&#39;):
+        &#34;&#34;&#34;
         Generates a new RSA or EC private key.\n
         - :param `key_type` [`str`]: the requested `private_key` type. Options are: [`ec256`, `ec384`, `rsa2048`,
         `rsa4098`]\n
@@ -1160,19 +168,19 @@ class ACMEClient:
 
         ## Example\n
         ```python
-        >>> client.generate_private_key(key_type="ec384")
-        b'-----BEGIN EC PRIVATE KEY-----\\nMIGkAgEBBDAZRFNLcQdVJmLh42p8F4D92...'
+        &gt;&gt;&gt; client.generate_private_key(key_type=&#34;ec384&#34;)
+        b&#39;-----BEGIN EC PRIVATE KEY-----\\nMIGkAgEBBDAZRFNLcQdVJmLh42p8F4D92...&#39;
         ```
-        """
+        &#34;&#34;&#34;
         # Generate a EC256 private key
-        if key_type == 'ec256':
+        if key_type == &#39;ec256&#39;:
             key = ec.generate_private_key(ec.SECP256R1(), default_backend())
             self.private_key = key.private_bytes(
                 encoding=Encoding.PEM,
                 format=PrivateFormat.TraditionalOpenSSL,
                 encryption_algorithm=NoEncryption())
         # Generate a EC384 private key
-        elif key_type == 'ec384':
+        elif key_type == &#39;ec384&#39;:
             key = ec.generate_private_key(ec.SECP384R1(), default_backend())
             self.private_key = key.private_bytes(
                 encoding=Encoding.PEM,
@@ -1180,24 +188,24 @@ class ACMEClient:
                 encryption_algorithm=NoEncryption()
             )
         # Generate a RSA2048 private key
-        elif key_type == 'rsa2048':
+        elif key_type == &#39;rsa2048&#39;:
             key = OpenSSL.crypto.PKey()
             key.generate_key(OpenSSL.crypto.TYPE_RSA, 2048)
             self.private_key = OpenSSL.crypto.dump_privatekey(OpenSSL.crypto.FILETYPE_PEM, key)
         # Generate a RSA4098 private key
-        elif key_type == 'rsa4098':
+        elif key_type == &#39;rsa4098&#39;:
             key = OpenSSL.crypto.PKey()
             key.generate_key(OpenSSL.crypto.TYPE_RSA, 4096)
             self.private_key = OpenSSL.crypto.dump_privatekey(OpenSSL.crypto.FILETYPE_PEM, key)
         # Otherwise, the requested key type is not supported. Throw an error
         else:
-            options = ['ec256', 'ec384', 'rsa2048', 'rsa4098']
-            msg = "Invalid private key rtype '{key_type}'. Options {options}".format(key_type=key_type, options=options)
+            options = [&#39;ec256&#39;, &#39;ec384&#39;, &#39;rsa2048&#39;, &#39;rsa4098&#39;]
+            msg = &#34;Invalid private key rtype &#39;{key_type}&#39;. Options {options}&#34;.format(key_type=key_type, options=options)
             raise errors.InvalidKeyType(msg)
         return self.private_key
 
-    def generate_private_key_and_csr(self, key_type='ec256'):
-        """
+    def generate_private_key_and_csr(self, key_type=&#39;ec256&#39;):
+        &#34;&#34;&#34;
         Generates a new private key and CSR.\n
         - :param `key_type` [`str`]: the requested `private_key` type. Options are: [`ec256`, `ec384`, `rsa2048`,
         `rsa4098`]\n
@@ -1206,30 +214,30 @@ class ACMEClient:
 
         ## Example\n
         ```python
-        >>> client.generate_private_key_and_csr(key_type="rsa2048")
-        (b'-----BEGIN PRIVATE KEY-----\\nMIIEvAIBA...', b'-----BEGIN CERTIFICATE REQUEST-----\\nMIHxM...')
+        &gt;&gt;&gt; client.generate_private_key_and_csr(key_type=&#34;rsa2048&#34;)
+        (b&#39;-----BEGIN PRIVATE KEY-----\\nMIIEvAIBA...&#39;, b&#39;-----BEGIN CERTIFICATE REQUEST-----\\nMIHxM...&#39;)
         ```
-        """
+        &#34;&#34;&#34;
         self.generate_private_key(key_type=key_type)
         self.generate_csr()
         return self.private_key, self.csr
 
     def request_verification_tokens(self):
-        """
+        &#34;&#34;&#34;
         Requests verification tokens from the ACME server for each `domains` value. These tokens must be uploaded as
         a DNS TXT record for each corresponding domain to complete verification.\n
-        - :return [`list`]: a list of tuples containing the challenge FQDN and it's corresponding verification token.\n
+        - :return [`list`]: a list of tuples containing the challenge FQDN and it&#39;s corresponding verification token.\n
         - :raises `InvalidAccount`: when account registration has not been set.\n\n
 
         ## Example\n
         ```python
-        >>> client.request_verification_tokens()
+        &gt;&gt;&gt; client.request_verification_tokens()
         [
-            ('_acme-challenge.test1.example.com', 'moY32lkdsZ3VWHM1mdM...'),
-            ('_acme-challenge.test2.example.com', 'asldfkjslweietj23_b...')
+            (&#39;_acme-challenge.test1.example.com&#39;, &#39;moY32lkdsZ3VWHM1mdM...&#39;),
+            (&#39;_acme-challenge.test2.example.com&#39;, &#39;asldfkjslweietj23_b...&#39;)
         ]
         ```
-        """
+        &#34;&#34;&#34;
         self.__validate_registration__()
         self.__responses__ = []
         self.__verification_tokens__ = []
@@ -1245,7 +253,7 @@ class ACMEClient:
         return self.__format_verification_tokens__()
 
     def request_certificate(self, wait=0, timeout=90):
-        """
+        &#34;&#34;&#34;
         Requests a final verification answer from the ACME server and requests the certificate if verification was
         successful. If you request the certificate before DNS has propagated and verification fails, you must start
         the verification process over entirely by requesting new verification tokens.\n
@@ -1258,10 +266,10 @@ class ACMEClient:
 
         ## Example\n
         ```python
-        >>> client.request_certificate()
-        b'-----BEGIN CERTIFICATE-----\\nMIIEfzCCA2egAwI...
+        &gt;&gt;&gt; client.request_certificate()
+        b&#39;-----BEGIN CERTIFICATE-----\\nMIIEfzCCA2egAwI...
         ```
-        """
+        &#34;&#34;&#34;
         self.__validate_verification_tokens__()
         time.sleep(wait)
         deadline = datetime.datetime.now() + datetime.timedelta(seconds=timeout)
@@ -1276,7 +284,7 @@ class ACMEClient:
         return self.certificate
 
     def revoke_certificate(self, reason=0):
-        """
+        &#34;&#34;&#34;
         Attempts to revoke the existing certificate from the issuing ACME server.\n
         - :param `reason` [`int`]: the numeric reason for revocation identifier.\n
         - :return [`none`]:\n
@@ -1285,9 +293,9 @@ class ACMEClient:
 
         ## Example\n
         ```python
-        >>> client.revoke_certificate()
+        &gt;&gt;&gt; client.revoke_certificate()
         ```
-        """
+        &#34;&#34;&#34;
         self.__validate_certificate__()
 
         # Load the certificate crypto object and request revocation from the ACME server
@@ -1295,7 +303,7 @@ class ACMEClient:
         self.__client__.revoke(cert_obj, reason)
 
     def new_account(self):
-        """
+        &#34;&#34;&#34;
         Registers a new ACME account at the set ACME `directory` URL. By running this method, you are agreeing to the
         ACME servers terms of use.\n
         - :return [`none`]: the account and account_key properties will be updated with the new account registration.\n
@@ -1304,9 +312,9 @@ class ACMEClient:
 
         ## Example\n
         ```python
-        >>> client.new_account()
+        &gt;&gt;&gt; client.new_account()
         ```
-        """
+        &#34;&#34;&#34;
         self.__validate_directory__()
         self.__validate_email__()
 
@@ -1315,7 +323,7 @@ class ACMEClient:
         self.account_key = jose.JWKRSA(key=rsa_key)
 
         # Initialize our ACME client object
-        self.__net__ = client.ClientNetwork(self.account_key, user_agent='simple_acme_dns/1.0.0')
+        self.__net__ = client.ClientNetwork(self.account_key, user_agent=&#39;simple_acme_dns/1.0.0&#39;)
         self.__directory__ = messages.Directory.from_json(self.__net__.get(self.directory).json())
         self.__client__ = client.ClientV2(self.__directory__, net=self.__net__)
 
@@ -1324,7 +332,7 @@ class ACMEClient:
         self.account = self.__client__.new_account(registration)
 
     def deactivate_account(self, delete=True):
-        """
+        &#34;&#34;&#34;
         Deactivates the current account registration. This action is irreversible.\n
         - :param `delete` [`bool`]: indicate whether any associated account file on the local system should also be
         deleted after deactivation.\n
@@ -1333,9 +341,9 @@ class ACMEClient:
 
         ## Example\n
         ```python
-        >>> client.deactivate_account()
+        &gt;&gt;&gt; client.deactivate_account()
         ```
-        """
+        &#34;&#34;&#34;
         self.__validate_registration__()
 
         # Tell the ACME server to deactivate this account
@@ -1346,7 +354,7 @@ class ACMEClient:
             pathlib.Path(self.account_path).unlink(missing_ok=True)
 
     def export_account(self, save_certificate=True, save_private_key=False):
-        """
+        &#34;&#34;&#34;
         Exports the object as a JSON string. This is useful when using a framework like Django and need to store account
         data as a string in the database.\n
         - :param `save_certificate` [`bool`]: indicate whether the certificate should also be stored in the
@@ -1359,27 +367,27 @@ class ACMEClient:
 
         ## Example\n
         ```python
-        >>> client.export_account(save_certificate=True, save_private_key=True)
-        '{"account": {"body": {"key": {"n": "vtByzpW..."}}}}'
+        &gt;&gt;&gt; client.export_account(save_certificate=True, save_private_key=True)
+        &#39;{&#34;account&#34;: {&#34;body&#34;: {&#34;key&#34;: {&#34;n&#34;: &#34;vtByzpW...&#34;}}}}&#39;
         ```
-        """
+        &#34;&#34;&#34;
         self.__validate_registration__()
         self.__validate_domains__()
 
         # Format our object into a serializable format
         acct_data = {
-            'account': self.account.to_json(),
-            'account_key': self.account_key.json_dumps(),
-            'directory': self.directory,
-            'domains': self.domains,
-            'certificate': self.certificate.decode() if save_certificate else '',
-            'private_key': self.private_key.decode() if save_private_key else ''
+            &#39;account&#39;: self.account.to_json(),
+            &#39;account_key&#39;: self.account_key.json_dumps(),
+            &#39;directory&#39;: self.directory,
+            &#39;domains&#39;: self.domains,
+            &#39;certificate&#39;: self.certificate.decode() if save_certificate else &#39;&#39;,
+            &#39;private_key&#39;: self.private_key.decode() if save_private_key else &#39;&#39;
         }
 
         return json.dumps(acct_data)
 
-    def export_account_to_file(self, path='.', name='account.json', save_certificate=True, save_private_key=False):
-        """
+    def export_account_to_file(self, path=&#39;.&#39;, name=&#39;account.json&#39;, save_certificate=True, save_private_key=False):
+        &#34;&#34;&#34;
         Exports our object as a JSON file.\n
         - :param `path` [`str`]: the directory path to save the account file. Defaults to current working directory.\n
         - :param `name` [`str`]: the file name. Defaults to `account.json`.\n
@@ -1390,14 +398,14 @@ class ACMEClient:
 
         ## Example\n
         ```python
-        >>> client.export_account_to_file(
-        ...     path="/tmp/",
-        ...     name="my_acme_account.json",
+        &gt;&gt;&gt; client.export_account_to_file(
+        ...     path=&#34;/tmp/&#34;,
+        ...     name=&#34;my_acme_account.json&#34;,
         ...     save_certificate=True,
         ...     save_private_key=True
         ... )
         ```
-        """
+        &#34;&#34;&#34;
         self.__validate_registration__()
         self.__validate_domains__()
         dir_path = pathlib.Path(path).absolute()
@@ -1405,42 +413,42 @@ class ACMEClient:
         # Ensure our path is an existing directory, throw an error otherwise
         if dir_path.is_dir():
             # Open the file and write our JSON content
-            with open(str(dir_path.joinpath(name)), 'w') as (wa):
+            with open(str(dir_path.joinpath(name)), &#39;w&#39;) as (wa):
                 wa.write(self.export_account(save_certificate, save_private_key))
                 self.account_path = str(dir_path.joinpath(name))
         else:
-            msg = "Directory at '{path}' does not exist.".format(path=path)
+            msg = &#34;Directory at &#39;{path}&#39; does not exist.&#34;.format(path=path)
             raise errors.InvalidPath(msg)
 
     @staticmethod
     def load_account(json_data):
-        """
+        &#34;&#34;&#34;
         Loads an existing account from a JSON data string created by the `export_account()` method.\n
         - :param `json_data` [`str`]: the JSON account data string.\n
         - :return [`ACMEClient`]: the loaded ACMEClient object.\n\n
 
         ## Example\n
         ```python
-        >>> client = simple_acme_dns.ACMEClient.load_account('{"account": {"body": {"key": {"n": "vtByzpW..."}}}}')
+        &gt;&gt;&gt; client = simple_acme_dns.ACMEClient.load_account(&#39;{&#34;account&#34;: {&#34;body&#34;: {&#34;key&#34;: {&#34;n&#34;: &#34;vtByzpW...&#34;}}}}&#39;)
         ```
-        """
+        &#34;&#34;&#34;
         acct_data = json.loads(json_data)
         obj = ACMEClient()
 
         # Format the serialized data back into the object
-        obj.directory = acct_data.get('directory', None)
-        obj.domains = acct_data.get('domains', [])
-        obj.certificate = acct_data.get('certificate', '').encode()
-        obj.private_key = acct_data.get('private_key', '').encode()
-        obj.email = acct_data['account']['body']['contact'][0].replace('mailto:', '')
-        obj.account = messages.RegistrationResource.json_loads(json.dumps(acct_data['account']))
-        obj.account_key = jose.JWKRSA.json_loads(acct_data['account_key'])
+        obj.directory = acct_data.get(&#39;directory&#39;, None)
+        obj.domains = acct_data.get(&#39;domains&#39;, [])
+        obj.certificate = acct_data.get(&#39;certificate&#39;, &#39;&#39;).encode()
+        obj.private_key = acct_data.get(&#39;private_key&#39;, &#39;&#39;).encode()
+        obj.email = acct_data[&#39;account&#39;][&#39;body&#39;][&#39;contact&#39;][0].replace(&#39;mailto:&#39;, &#39;&#39;)
+        obj.account = messages.RegistrationResource.json_loads(json.dumps(acct_data[&#39;account&#39;]))
+        obj.account_key = jose.JWKRSA.json_loads(acct_data[&#39;account_key&#39;])
 
         return obj
 
     @staticmethod
     def load_account_from_file(filepath):
-        """
+        &#34;&#34;&#34;
         Loads an existing account from a JSON file created by the `export_account_to_file()` method.\n
         - :param `filepath` [`str`]: the file path to the account JSON file.\n
         - :return [`ACMEClient`]: the loaded ACMEClient object.\n
@@ -1448,25 +456,25 @@ class ACMEClient:
 
         ## Example\n
         ```python
-        >>> client = simple_acme_dns.ACMEClient.load_account('/tmp/my_acme_account.json')
+        &gt;&gt;&gt; client = simple_acme_dns.ACMEClient.load_account(&#39;/tmp/my_acme_account.json&#39;)
         ```
-        """
+        &#34;&#34;&#34;
         filepath = pathlib.Path(filepath).absolute()
 
         # Ensure our file exists, throw an error otherwise
         if filepath.exists():
-            # Open our file and read it's contents.
-            with open(filepath, 'r') as (rj):
+            # Open our file and read it&#39;s contents.
+            with open(filepath, &#39;r&#39;) as (rj):
                 json_data = rj.read()
 
             # Load contents into a new object.
             obj = ACMEClient.load_account(json_data)
             obj.account_path = filepath
         else:
-            raise errors.InvalidPath("No JSON account file found at '{path}'".format(path=(str(filepath))))
+            raise errors.InvalidPath(&#34;No JSON account file found at &#39;{path}&#39;&#34;.format(path=(str(filepath))))
 
         # Re-initialize the ACME client and registration
-        obj.__net__ = client.ClientNetwork(obj.account_key, user_agent='simple_acme_dns/1.0.0')
+        obj.__net__ = client.ClientNetwork(obj.account_key, user_agent=&#39;simple_acme_dns/1.0.0&#39;)
         obj.__directory__ = messages.Directory.from_json(obj.__net__.get(obj.directory).json())
         obj.__client__ = client.ClientV2(obj.__directory__, net=obj.__net__)
         obj.account = obj.__client__.query_registration(obj.account)
@@ -1474,8 +482,8 @@ class ACMEClient:
         return obj
 
     def check_dns_propagation(self, timeout=300, interval=2, authoritative=False, round_robin=True, verbose=False):
-        """
-        Check's each of our domain's TXT record until the value matches it's verification token or until the timeout is
+        &#34;&#34;&#34;
+        Check&#39;s each of our domain&#39;s TXT record until the value matches it&#39;s verification token or until the timeout is
         reached. This method should be executed before executing the `request_certificates()` method. This method can
         take several minutes to complete, ensure you adjust the timeout value accordingly.\n
         - :param `timeout` [`int`]: the amount of time (in seconds) to continue trying to verify the TXT records.\n
@@ -1489,24 +497,24 @@ class ACMEClient:
 
         ## Example\n
         ```python
-        >>> client.nameservers = ["8.8.8.8", "1.1.1.1"]
-        >>> client.check_dns_propagation(
+        &gt;&gt;&gt; client.nameservers = [&#34;8.8.8.8&#34;, &#34;1.1.1.1&#34;]
+        &gt;&gt;&gt; client.check_dns_propagation(
         ...     timeout=180,
         ...     interval=5,
         ...     authoritative=False,
         ...     round_robin=True,
         ...     verbose=False
         ... )
-        Token 'moY3Cd0...' for '_acme-challenge.test1.example.com' not found in [] via 8.8.8.8
-        Token 'O32-fd_...' for '_acme-challenge.test2.example.com' not found in [] via 8.8.8.8
-        Token 'moY3Cd0...' for '_acme-challenge.test1.example.com' not found in [] via 1.1.1.1
-        Token 'O32-fd_...' for '_acme-challenge.test2.example.com' found in ['O32-fd_...'] via 1.1.1.1
-        Token 'moY3Cd0...' for '_acme-challenge.test1.example.com' not found in [] via 8.8.8.8
-        Token 'moY3Cd0...' for '_acme-challenge.test1.example.com' not found in [] via 1.1.1.1
-        Token 'moY3Cd0...' for '_acme-challenge.test1.example.com' found in ['moY3Cd0...'] via 8.8.8.8
+        Token &#39;moY3Cd0...&#39; for &#39;_acme-challenge.test1.example.com&#39; not found in [] via 8.8.8.8
+        Token &#39;O32-fd_...&#39; for &#39;_acme-challenge.test2.example.com&#39; not found in [] via 8.8.8.8
+        Token &#39;moY3Cd0...&#39; for &#39;_acme-challenge.test1.example.com&#39; not found in [] via 1.1.1.1
+        Token &#39;O32-fd_...&#39; for &#39;_acme-challenge.test2.example.com&#39; found in [&#39;O32-fd_...&#39;] via 1.1.1.1
+        Token &#39;moY3Cd0...&#39; for &#39;_acme-challenge.test1.example.com&#39; not found in [] via 8.8.8.8
+        Token &#39;moY3Cd0...&#39; for &#39;_acme-challenge.test1.example.com&#39; not found in [] via 1.1.1.1
+        Token &#39;moY3Cd0...&#39; for &#39;_acme-challenge.test1.example.com&#39; found in [&#39;moY3Cd0...&#39;] via 8.8.8.8
         True
         ```
-        """
+        &#34;&#34;&#34;
         self.__validate_verification_tokens__()
         verified = []
         resolvers = []
@@ -1516,7 +524,7 @@ class ACMEClient:
         for rdomain, rtoken in self.verification_tokens:
             r = tools.DNSQuery(
                 rdomain,
-                rtype='TXT',
+                rtype=&#39;TXT&#39;,
                 authoritative=authoritative,
                 nameservers=self.nameservers,
                 round_robin=round_robin
@@ -1524,7 +532,7 @@ class ACMEClient:
             resolvers.append((rdomain, rtoken, r))
 
         # Loop until we have exceeded our timeout value
-        while datetime.datetime.now() < timeout:
+        while datetime.datetime.now() &lt; timeout:
             # Loop through each domain being verified
             for domain, token, resolver in resolvers:
                 # Only try to verify the domain if it has not already been verified
@@ -1535,10 +543,10 @@ class ACMEClient:
                         verified.append(domain)
                     # If verbose mode is enabled, print the results to the console
                     if verbose:
-                        msg = "Token '{token}' for '{domain}' {action} in {values} via {ns}".format(
+                        msg = &#34;Token &#39;{token}&#39; for &#39;{domain}&#39; {action} in {values} via {ns}&#34;.format(
                             token=token,
                             domain=domain,
-                            action=('found' if domain in verified else 'not found'),
+                            action=(&#39;found&#39; if domain in verified else &#39;not found&#39;),
                             values=resolver.values,
                             ns=resolver.last_nameserver
                         )
@@ -1554,18 +562,18 @@ class ACMEClient:
         return False
 
     def __verify_challenge__(self):
-        """
+        &#34;&#34;&#34;
         Checks that the DNS-01 challenge is supported by the ACME server and initializes the challenge. This is an
         internal method and is not intended for use otherwise.
         :return: (list) a list of acme.challenges.ChallengeBody objects
         :raises: ChallengeUnavailable when the specified ACME server does not support the DNS-01 challenge
-        """
+        &#34;&#34;&#34;
         self.__challenges__ = []
         authz_list = self.__order__.authorizations
 
         # Loop through each of our authorizations
         for authz in authz_list:
-            # Loop through each authorization's available challenges
+            # Loop through each authorization&#39;s available challenges
             for i in authz.body.challenges:
                 # Add the DNS-01 challenge if it is found
                 if isinstance(i.chall, challenges.DNS01):
@@ -1573,118 +581,131 @@ class ACMEClient:
 
         # If no challenges were found, throw an error
         if not self.__challenges__:
-            msg = "ACME server at '{directory}' does not support DNS-01 challenge."
+            msg = &#34;ACME server at &#39;{directory}&#39; does not support DNS-01 challenge.&#34;
             raise errors.ChallengeUnavailable(msg.format(directory=(str(self.directory))))
 
         return self.__challenges__
 
     def __validate_registration__(self):
-        """
+        &#34;&#34;&#34;
         Checks that our client is initialized with proper account registration.
         :return: (none)
         :raises: InvalidAccount when no account registration is configured for this object
-        """
+        &#34;&#34;&#34;
         if type(self.__client__) != client.ClientV2:
-            msg = 'No account registration found. You must register a new account or load an existing account first.'
+            msg = &#39;No account registration found. You must register a new account or load an existing account first.&#39;
             raise errors.InvalidAccount(msg)
 
     def __validate_email__(self):
-        """
+        &#34;&#34;&#34;
         Checks that our client is initialized with proper account email.
         :return: (none)
         :raises: InvalidEmail when no account email is configured for this object.
-        """
+        &#34;&#34;&#34;
         if not self.email:
-            msg = 'No account email found. You must set the email value first.'
+            msg = &#39;No account email found. You must set the email value first.&#39;
             raise errors.InvalidEmail(msg)
 
     def __validate_verification_tokens__(self):
-        """
+        &#34;&#34;&#34;
         Checks that our client object has valid verification tokens.
         :return: (none)
         :raises: InvalidValidation when no verification tokens are issued for this object.
-        """
+        &#34;&#34;&#34;
         if not self.__verification_tokens__:
-            msg = 'No verification tokens found. You must run request_verification_tokens() first.'
+            msg = &#39;No verification tokens found. You must run request_verification_tokens() first.&#39;
             raise errors.InvalidVerificationToken(msg)
 
     def __validate_domains__(self):
-        """
+        &#34;&#34;&#34;
         Checks that our client is initialized with valid domain names.
         :return: (none)
         :raises: InvalidDomain when no domains are specified, domains is not list, or domain is not RFC2181 compliant.
-        """
+        &#34;&#34;&#34;
         if not self.domains:
-            msg = 'No domains found. You must set a domains value first.'
+            msg = &#39;No domains found. You must set a domains value first.&#39;
             raise errors.InvalidDomain(msg)
         if type(self.domains) != list:
-            msg = "Domains must be rtype 'list'."
+            msg = &#34;Domains must be rtype &#39;list&#39;.&#34;
             raise errors.InvalidDomain(msg)
         for domain in self.domains:
             if not validators.domain(domain):
-                msg = "Invalid domain name '{domain}'. Domain name must adhere to RFC2181.".format(domain=domain)
+                msg = &#34;Invalid domain name &#39;{domain}&#39;. Domain name must adhere to RFC2181.&#34;.format(domain=domain)
                 raise errors.InvalidDomain(msg)
 
     def __validate_directory__(self):
-        """
+        &#34;&#34;&#34;
         Checks that our client object has a valid ACME server directory URL.
         :return: (none)
         :raises: InvalidACMEDirectoryURL when no directory URL is set.
-        """
+        &#34;&#34;&#34;
         if not self.directory:
-            msg = 'No ACME server directory URL. You must set a directory value first.'
+            msg = &#39;No ACME server directory URL. You must set a directory value first.&#39;
             raise errors.InvalidACMEDirectoryURL(msg)
 
     def __validate_certificate__(self):
-        """
+        &#34;&#34;&#34;
         Checks that our client object holds an issued certificate.
         :return: (none)
         :raises: InvalidCertificate when no certificate exists for this object.
-        """
+        &#34;&#34;&#34;
         if not self.certificate:
-            msg = 'No certificate found. You must load or request a certificate first.'
+            msg = &#39;No certificate found. You must load or request a certificate first.&#39;
             raise errors.InvalidCertificate(msg)
 
     def __validate_private_key__(self):
-        """
+        &#34;&#34;&#34;
         Checks that our client is initialized with a valid private key.
         :return: (none)
         :raises: InvalidPrivateKey when no private exists for this object.
-        """
+        &#34;&#34;&#34;
         if not self.private_key:
-            msg = 'No private found. You must generate a private key first.'
+            msg = &#39;No private found. You must generate a private key first.&#39;
             raise errors.InvalidPrivateKey(msg)
 
     def __format_verification_tokens__(self):
-        """
+        &#34;&#34;&#34;
         Formats the FQDNs the ACME server expects and their corresponding verification token to upload to DNS.
         :return: (list) a list of tuples. First value is the FQDN, second value is the verification token.
-        """
+        &#34;&#34;&#34;
         self.__validate_domains__()
         self.__validate_verification_tokens__()
         groupings = []
 
-        # Loop through each domain and group it with it's corresponding verification token
+        # Loop through each domain and group it with it&#39;s corresponding verification token
         for i, domain in enumerate(self.domains):
-            groupings.append((self.DNS_LABEL + '.' + domain, self.__verification_tokens__[i]))
+            groupings.append((self.DNS_LABEL + &#39;.&#39; + domain, self.__verification_tokens__[i]))
 
         self.verification_tokens = groupings
-        return groupings
-</code></pre>
-  </div>
-
-  </header>
-
-  <section id="section-items">
-
-
-    <h2 class="section-title" id="header-classes">Classes</h2>
-      
-      <div class="item">
-      <p id="simple_acme_dns.ACMEClient" class="name">class <span class="ident">ACMEClient</span></p>
-      
-  
-    <div class="desc"><p>A basic ACME client object to interface with a CA using the ACME DNS-01 challenge.</p>
+        return groupings</code></pre>
+</details>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="simple_acme_dns.errors" href="errors/index.html">simple_acme_dns.errors</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt><code class="name"><a title="simple_acme_dns.tools" href="tools/index.html">simple_acme_dns.tools</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="simple_acme_dns.ACMEClient"><code class="flex name class">
+<span>class <span class="ident">ACMEClient</span></span>
+<span>(</span><span>domains=None, email=None, directory=None, nameservers=None, new_account=False, generate_csr=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A basic ACME client object to interface with a CA using the ACME DNS-01 challenge.</p>
 <ul>
 <li>
 <p>:var <code>certificate</code> [<code>bytes</code>]: the PEM formatted certificate. This value is populated after successfully running
@@ -1698,640 +719,6 @@ the <code>generate_private_key()</code> method.</p>
 <p>:var <code>csr</code> [<code>bytes</code>]: the PEM formatted certificate signing request. This value is populated after successfully
 running the <code>generate_csr()</code> method.</p>
 </li>
-</ul></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-simple_acme_dns.ACMEClient', this);">Show source &equiv;</a></p>
-  <div id="source-simple_acme_dns.ACMEClient" class="source">
-    <pre><code>class ACMEClient:
-    """
-    A basic ACME client object to interface with a CA using the ACME DNS-01 challenge.\n
-    - :var `certificate` [`bytes`]: the PEM formatted certificate. This value is populated after successfully running
-    the `request_certificate()` methood.\n
-    - :var `private_key` [`bytes`]: the PEM formatted private key. This value is populated after successfully running
-    the `generate_private_key()` method.\n
-    - :var `csr` [`bytes`]: the PEM formatted certificate signing request. This value is populated after successfully
-    running the `generate_csr()` method.\n
-    """
-
-    def __init__(
-            self, domains=None, email=None, directory=None, nameservers=None, new_account=False, generate_csr=False
-    ):
-        """
-        - :param `domains` [`list`]: FQDNs to list in the certificate (SANS).\n
-        - :param `email` [`str`]: a valid email address to register new ACME accounts with.\n
-        - :param `directory` [`str`]: the ACME directory URL.\n
-        - :param `nameservers` [`list`]: nameservers to use when querying DNS. Defaults to system nameservers.\n
-        - :param `new_account` [`bool`]: automatically register a new account upon object creation. A `directory` and
-        `email` value will be required if True.\n
-        - :param `generate_csr` [`bool`]: generate a new private key and CSR upon object creation. A `domains` value
-        will be required if True.\n\n
-
-        ## Example:\n
-        ```python
-        >>> import simple_acme_dns
-        >>> client = simple_acme_dns.ACMEClient(
-        ...     domains=["test1.example.com", "test2.example.com"],
-        ...     email="example@example.com",
-        ...     directory="https://acme-staging-v02.api.letsencrypt.org/directory",
-        ...     nameservers=["8.8.8.8", "1.1.1.1"],
-        ...     new_account=True,
-        ...     generate_csr=True
-        ... )
-        ```
-
-        """
-        self.DNS_LABEL = '_acme-challenge'
-        self.domains = domains if domains else []
-        self.email = email
-        self.directory = directory
-        self.certificate = ''.encode()
-        self.private_key = ''.encode()
-        self.csr = ''.encode()
-        self.verification_tokens = []
-        self.account_key = None
-        self.account = None
-        self.account_path = None
-        self.nameservers = nameservers
-        self.__private_key__ = None
-        self.__client__ = None
-        self.__net__ = None
-        self.__directory__ = None
-        self.__order__ = None
-        self.__final_order__ = None
-        self.__verification_tokens__ = []
-        self.__responses__ = []
-        self.__challenges__ = []
-        self.__answers__ = []
-
-        # Automatically create a new account if requested
-        if new_account:
-            self.new_account()
-        # Automatically create a new private key and CSR
-        if generate_csr:
-            self.generate_private_key_and_csr()
-
-    def generate_csr(self):
-        """
-        Generates a new CSR using the object's `domains` and `private_key` values.\n
-        - :return [`bytes`]: the encoded CSR PEM data string. This method will update the `csr` property of the object
-        with the same value.\n
-        - :raises `InvalidDomain`: when no valid `domains` are set.\n
-        - :raises `InvalidPrivateKey`: when no `private_key` exists for this object.\n\n
-
-        ## Example\n
-        ```python
-        >>> client.generate_csr()
-        b'-----BEGIN CERTIFICATE REQUEST-----\\nMIHxMIGZAgECMAAwWTATBgckjkn...'
-        ```
-        """
-        self.__validate_domains__()
-        self.__validate_private_key__()
-        self.csr = crypto_util.make_csr(self.private_key, self.domains)
-        return self.csr
-
-    def generate_private_key(self, key_type='ec256'):
-        """
-        Generates a new RSA or EC private key.\n
-        - :param `key_type` [`str`]: the requested `private_key` type. Options are: [`ec256`, `ec384`, `rsa2048`,
-        `rsa4098`]\n
-        - :return [`bytes`]: the encoded private key PEM data string. This method will update the `private_key` property
-         of the object with the same value.\n
-        - :raises `InvalidKeyType`: when an unknown/unsupported `key_type` is requested\n\n
-
-        ## Example\n
-        ```python
-        >>> client.generate_private_key(key_type="ec384")
-        b'-----BEGIN EC PRIVATE KEY-----\\nMIGkAgEBBDAZRFNLcQdVJmLh42p8F4D92...'
-        ```
-        """
-        # Generate a EC256 private key
-        if key_type == 'ec256':
-            key = ec.generate_private_key(ec.SECP256R1(), default_backend())
-            self.private_key = key.private_bytes(
-                encoding=Encoding.PEM,
-                format=PrivateFormat.TraditionalOpenSSL,
-                encryption_algorithm=NoEncryption())
-        # Generate a EC384 private key
-        elif key_type == 'ec384':
-            key = ec.generate_private_key(ec.SECP384R1(), default_backend())
-            self.private_key = key.private_bytes(
-                encoding=Encoding.PEM,
-                format=PrivateFormat.TraditionalOpenSSL,
-                encryption_algorithm=NoEncryption()
-            )
-        # Generate a RSA2048 private key
-        elif key_type == 'rsa2048':
-            key = OpenSSL.crypto.PKey()
-            key.generate_key(OpenSSL.crypto.TYPE_RSA, 2048)
-            self.private_key = OpenSSL.crypto.dump_privatekey(OpenSSL.crypto.FILETYPE_PEM, key)
-        # Generate a RSA4098 private key
-        elif key_type == 'rsa4098':
-            key = OpenSSL.crypto.PKey()
-            key.generate_key(OpenSSL.crypto.TYPE_RSA, 4096)
-            self.private_key = OpenSSL.crypto.dump_privatekey(OpenSSL.crypto.FILETYPE_PEM, key)
-        # Otherwise, the requested key type is not supported. Throw an error
-        else:
-            options = ['ec256', 'ec384', 'rsa2048', 'rsa4098']
-            msg = "Invalid private key rtype '{key_type}'. Options {options}".format(key_type=key_type, options=options)
-            raise errors.InvalidKeyType(msg)
-        return self.private_key
-
-    def generate_private_key_and_csr(self, key_type='ec256'):
-        """
-        Generates a new private key and CSR.\n
-        - :param `key_type` [`str`]: the requested `private_key` type. Options are: [`ec256`, `ec384`, `rsa2048`,
-        `rsa4098`]\n
-        - :return [`tuple`]: first value contains the key, the second value contains the CSR. This method will update
-        the `private_key` and `csr` properties of this object with the same values.\n\n
-
-        ## Example\n
-        ```python
-        >>> client.generate_private_key_and_csr(key_type="rsa2048")
-        (b'-----BEGIN PRIVATE KEY-----\\nMIIEvAIBA...', b'-----BEGIN CERTIFICATE REQUEST-----\\nMIHxM...')
-        ```
-        """
-        self.generate_private_key(key_type=key_type)
-        self.generate_csr()
-        return self.private_key, self.csr
-
-    def request_verification_tokens(self):
-        """
-        Requests verification tokens from the ACME server for each `domains` value. These tokens must be uploaded as
-        a DNS TXT record for each corresponding domain to complete verification.\n
-        - :return [`list`]: a list of tuples containing the challenge FQDN and it's corresponding verification token.\n
-        - :raises `InvalidAccount`: when account registration has not been set.\n\n
-
-        ## Example\n
-        ```python
-        >>> client.request_verification_tokens()
-        [
-            ('_acme-challenge.test1.example.com', 'moY32lkdsZ3VWHM1mdM...'),
-            ('_acme-challenge.test2.example.com', 'asldfkjslweietj23_b...')
-        ]
-        ```
-        """
-        self.__validate_registration__()
-        self.__responses__ = []
-        self.__verification_tokens__ = []
-        self.__order__ = self.__client__.new_order(self.csr)
-        self.__challenges__ = self.__verify_challenge__()
-
-        # Loop through each of our challenges and extract the response and verification token from each
-        for i, c in enumerate(self.__challenges__):
-            response, validation = c.response_and_validation(self.__client__.net.key)
-            self.__responses__.append(response)
-            self.__verification_tokens__.append(validation)
-
-        return self.__format_verification_tokens__()
-
-    def request_certificate(self, wait=0, timeout=90):
-        """
-        Requests a final verification answer from the ACME server and requests the certificate if verification was
-        successful. If you request the certificate before DNS has propagated and verification fails, you must start
-        the verification process over entirely by requesting new verification tokens.\n
-        - :param `wait` [`int`]: amount of time (in seconds) to wait before requesting a challenge answer from the
-        server. This is only necessary if you are not using the `check_dns_propagation()` method to verify the DNS
-        records exist and would rather wait a specific amount of time.\n
-        - :return [`bytes`]: the PEM encoded certificate. This method will update the `certificate` and `csr` property
-        of this object with the same value.\n
-        - :raises `InvalidAccount`:  when account registration has not been set.\n\n
-
-        ## Example\n
-        ```python
-        >>> client.request_certificate()
-        b'-----BEGIN CERTIFICATE-----\\nMIIEfzCCA2egAwI...
-        ```
-        """
-        self.__validate_verification_tokens__()
-        time.sleep(wait)
-        deadline = datetime.datetime.now() + datetime.timedelta(seconds=timeout)
-
-        # For each challenge, request an answer.
-        for i, c in enumerate(self.__challenges__):
-            self.__answers__.append(self.__client__.answer_challenge(c, self.__responses__[i]))
-
-        # Request our final order and save the certificate if successful
-        self.__final_order__ = self.__client__.poll_and_finalize(self.__order__, deadline=deadline)
-        self.certificate = self.__final_order__.fullchain_pem.encode()
-        return self.certificate
-
-    def revoke_certificate(self, reason=0):
-        """
-        Attempts to revoke the existing certificate from the issuing ACME server.\n
-        - :param `reason` [`int`]: the numeric reason for revocation identifier.\n
-        - :return [`none`]:\n
-        - :raises `InvalidCertificate`: if this object does not contain a certificate.\n
-        - :raises `acme.errors.ConflictError`: if the certificate is already revoked.\n\n
-
-        ## Example\n
-        ```python
-        >>> client.revoke_certificate()
-        ```
-        """
-        self.__validate_certificate__()
-
-        # Load the certificate crypto object and request revocation from the ACME server
-        cert_obj = jose.ComparableX509(OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, self.certificate))
-        self.__client__.revoke(cert_obj, reason)
-
-    def new_account(self):
-        """
-        Registers a new ACME account at the set ACME `directory` URL. By running this method, you are agreeing to the
-        ACME servers terms of use.\n
-        - :return [`none`]: the account and account_key properties will be updated with the new account registration.\n
-        - :raises `InvalidDirectory`: if this object does not contain a valid ACME directory URL.\n
-        - :raises `InvalidEmail`: if this object does not contain a valid email address to use during registration.\n\n
-
-        ## Example\n
-        ```python
-        >>> client.new_account()
-        ```
-        """
-        self.__validate_directory__()
-        self.__validate_email__()
-
-        # Generate a new RSA2048 account key
-        rsa_key = rsa.generate_private_key(public_exponent=65537, key_size=2048, backend=(default_backend()))
-        self.account_key = jose.JWKRSA(key=rsa_key)
-
-        # Initialize our ACME client object
-        self.__net__ = client.ClientNetwork(self.account_key, user_agent='simple_acme_dns/1.0.0')
-        self.__directory__ = messages.Directory.from_json(self.__net__.get(self.directory).json())
-        self.__client__ = client.ClientV2(self.__directory__, net=self.__net__)
-
-        # Complete registration
-        registration = messages.NewRegistration.from_data(email=self.email, terms_of_service_agreed=True)
-        self.account = self.__client__.new_account(registration)
-
-    def deactivate_account(self, delete=True):
-        """
-        Deactivates the current account registration. This action is irreversible.\n
-        - :param `delete` [`bool`]: indicate whether any associated account file on the local system should also be
-        deleted after deactivation.\n
-        - :return [`none`]:\n
-        - :raises `InvalidAccount`: when account registration has not been set.\n\n
-
-        ## Example\n
-        ```python
-        >>> client.deactivate_account()
-        ```
-        """
-        self.__validate_registration__()
-
-        # Tell the ACME server to deactivate this account
-        self.__client__.deactivate_registration(self.account)
-
-        # If this object contains a linked file path, and deletion is requested, delete the linked file
-        if self.account_path and delete:
-            pathlib.Path(self.account_path).unlink(missing_ok=True)
-
-    def export_account(self, save_certificate=True, save_private_key=False):
-        """
-        Exports the object as a JSON string. This is useful when using a framework like Django and need to store account
-        data as a string in the database.\n
-        - :param `save_certificate` [`bool`]: indicate whether the certificate should also be stored in the
-        JSON string.\n
-        - :param `save_private_key` [`bool`]: indicate whether the private key should also be stored in the
-        JSON string.\n
-        - :return [`str`]: the current object encoded as a JSON string.\n
-        - :raises `InvalidAccount`: when account registration has not been set.\n
-        - :raises `InvalidDomain`: when no valid domains are set.\n\n
-
-        ## Example\n
-        ```python
-        >>> client.export_account(save_certificate=True, save_private_key=True)
-        '{"account": {"body": {"key": {"n": "vtByzpW..."}}}}'
-        ```
-        """
-        self.__validate_registration__()
-        self.__validate_domains__()
-
-        # Format our object into a serializable format
-        acct_data = {
-            'account': self.account.to_json(),
-            'account_key': self.account_key.json_dumps(),
-            'directory': self.directory,
-            'domains': self.domains,
-            'certificate': self.certificate.decode() if save_certificate else '',
-            'private_key': self.private_key.decode() if save_private_key else ''
-        }
-
-        return json.dumps(acct_data)
-
-    def export_account_to_file(self, path='.', name='account.json', save_certificate=True, save_private_key=False):
-        """
-        Exports our object as a JSON file.\n
-        - :param `path` [`str`]: the directory path to save the account file. Defaults to current working directory.\n
-        - :param `name` [`str`]: the file name. Defaults to `account.json`.\n
-        - :param `save_certificate` [`bool`]: indicate whether the certificate should also be stored in the JSON file.\n
-        - :param `save_private_key` [`bool`]: indicate whether the private key should also be stored in the JSON file.\n
-        - :return [`none`]: the file will be created at the specified path if an exception was not raised.\n
-        - :raises `InvalidPath`: when the requested directory path to export the account to does not exist.\n\n
-
-        ## Example\n
-        ```python
-        >>> client.export_account_to_file(
-        ...     path="/tmp/",
-        ...     name="my_acme_account.json",
-        ...     save_certificate=True,
-        ...     save_private_key=True
-        ... )
-        ```
-        """
-        self.__validate_registration__()
-        self.__validate_domains__()
-        dir_path = pathlib.Path(path).absolute()
-
-        # Ensure our path is an existing directory, throw an error otherwise
-        if dir_path.is_dir():
-            # Open the file and write our JSON content
-            with open(str(dir_path.joinpath(name)), 'w') as (wa):
-                wa.write(self.export_account(save_certificate, save_private_key))
-                self.account_path = str(dir_path.joinpath(name))
-        else:
-            msg = "Directory at '{path}' does not exist.".format(path=path)
-            raise errors.InvalidPath(msg)
-
-    @staticmethod
-    def load_account(json_data):
-        """
-        Loads an existing account from a JSON data string created by the `export_account()` method.\n
-        - :param `json_data` [`str`]: the JSON account data string.\n
-        - :return [`ACMEClient`]: the loaded ACMEClient object.\n\n
-
-        ## Example\n
-        ```python
-        >>> client = simple_acme_dns.ACMEClient.load_account('{"account": {"body": {"key": {"n": "vtByzpW..."}}}}')
-        ```
-        """
-        acct_data = json.loads(json_data)
-        obj = ACMEClient()
-
-        # Format the serialized data back into the object
-        obj.directory = acct_data.get('directory', None)
-        obj.domains = acct_data.get('domains', [])
-        obj.certificate = acct_data.get('certificate', '').encode()
-        obj.private_key = acct_data.get('private_key', '').encode()
-        obj.email = acct_data['account']['body']['contact'][0].replace('mailto:', '')
-        obj.account = messages.RegistrationResource.json_loads(json.dumps(acct_data['account']))
-        obj.account_key = jose.JWKRSA.json_loads(acct_data['account_key'])
-
-        return obj
-
-    @staticmethod
-    def load_account_from_file(filepath):
-        """
-        Loads an existing account from a JSON file created by the `export_account_to_file()` method.\n
-        - :param `filepath` [`str`]: the file path to the account JSON file.\n
-        - :return [`ACMEClient`]: the loaded ACMEClient object.\n
-        - :raises `InvalidPath`: when the file path of the account JSON or key does not exist.\n
-
-        ## Example\n
-        ```python
-        >>> client = simple_acme_dns.ACMEClient.load_account('/tmp/my_acme_account.json')
-        ```
-        """
-        filepath = pathlib.Path(filepath).absolute()
-
-        # Ensure our file exists, throw an error otherwise
-        if filepath.exists():
-            # Open our file and read it's contents.
-            with open(filepath, 'r') as (rj):
-                json_data = rj.read()
-
-            # Load contents into a new object.
-            obj = ACMEClient.load_account(json_data)
-            obj.account_path = filepath
-        else:
-            raise errors.InvalidPath("No JSON account file found at '{path}'".format(path=(str(filepath))))
-
-        # Re-initialize the ACME client and registration
-        obj.__net__ = client.ClientNetwork(obj.account_key, user_agent='simple_acme_dns/1.0.0')
-        obj.__directory__ = messages.Directory.from_json(obj.__net__.get(obj.directory).json())
-        obj.__client__ = client.ClientV2(obj.__directory__, net=obj.__net__)
-        obj.account = obj.__client__.query_registration(obj.account)
-
-        return obj
-
-    def check_dns_propagation(self, timeout=300, interval=2, authoritative=False, round_robin=True, verbose=False):
-        """
-        Check's each of our domain's TXT record until the value matches it's verification token or until the timeout is
-        reached. This method should be executed before executing the `request_certificates()` method. This method can
-        take several minutes to complete, ensure you adjust the timeout value accordingly.\n
-        - :param `timeout` [`int`]: the amount of time (in seconds) to continue trying to verify the TXT records.\n
-        - :param `interval` [`float`]: the amount of time (in seconds) between DNS requests per domain.\n
-        - :param `authoritative` [`bool`]: identify and use the authoritative nameserver for each domain instead of the
-        objects `nameservers` property values.\n
-        - :param `round_robin` [`bool`]: rotate between each nameserver instead of the default failover method.\n
-        - :param `verbose` [`bool`]: print DNS answers to the console.\n
-        - :return [`bool`]: indicates whether or not all of the `domains` correctly return their verification token in
-        their TXT record.\n\n
-
-        ## Example\n
-        ```python
-        >>> client.nameservers = ["8.8.8.8", "1.1.1.1"]
-        >>> client.check_dns_propagation(
-        ...     timeout=180,
-        ...     interval=5,
-        ...     authoritative=False,
-        ...     round_robin=True,
-        ...     verbose=False
-        ... )
-        Token 'moY3Cd0...' for '_acme-challenge.test1.example.com' not found in [] via 8.8.8.8
-        Token 'O32-fd_...' for '_acme-challenge.test2.example.com' not found in [] via 8.8.8.8
-        Token 'moY3Cd0...' for '_acme-challenge.test1.example.com' not found in [] via 1.1.1.1
-        Token 'O32-fd_...' for '_acme-challenge.test2.example.com' found in ['O32-fd_...'] via 1.1.1.1
-        Token 'moY3Cd0...' for '_acme-challenge.test1.example.com' not found in [] via 8.8.8.8
-        Token 'moY3Cd0...' for '_acme-challenge.test1.example.com' not found in [] via 1.1.1.1
-        Token 'moY3Cd0...' for '_acme-challenge.test1.example.com' found in ['moY3Cd0...'] via 8.8.8.8
-        True
-        ```
-        """
-        self.__validate_verification_tokens__()
-        verified = []
-        resolvers = []
-        timeout = datetime.datetime.now() + datetime.timedelta(seconds=timeout)
-
-        # Create a DNS resolver object for each domain being verified
-        for rdomain, rtoken in self.verification_tokens:
-            r = tools.DNSQuery(
-                rdomain,
-                rtype='TXT',
-                authoritative=authoritative,
-                nameservers=self.nameservers,
-                round_robin=round_robin
-            )
-            resolvers.append((rdomain, rtoken, r))
-
-        # Loop until we have exceeded our timeout value
-        while datetime.datetime.now() < timeout:
-            # Loop through each domain being verified
-            for domain, token, resolver in resolvers:
-                # Only try to verify the domain if it has not already been verified
-                if domain not in verified:
-                    resolver.resolve()
-                    # Save this domain as verified if our token was found in the TXT record values
-                    if token in resolver.values:
-                        verified.append(domain)
-                    # If verbose mode is enabled, print the results to the console
-                    if verbose:
-                        msg = "Token '{token}' for '{domain}' {action} in {values} via {ns}".format(
-                            token=token,
-                            domain=domain,
-                            action=('found' if domain in verified else 'not found'),
-                            values=resolver.values,
-                            ns=resolver.last_nameserver
-                        )
-                        print(msg)
-
-            # If all our domains have been verified
-            if len(verified) == len(self.verification_tokens):
-                return True
-
-            # Avoid flooding the DNS server(s)
-            time.sleep(interval)
-
-        return False
-
-    def __verify_challenge__(self):
-        """
-        Checks that the DNS-01 challenge is supported by the ACME server and initializes the challenge. This is an
-        internal method and is not intended for use otherwise.
-        :return: (list) a list of acme.challenges.ChallengeBody objects
-        :raises: ChallengeUnavailable when the specified ACME server does not support the DNS-01 challenge
-        """
-        self.__challenges__ = []
-        authz_list = self.__order__.authorizations
-
-        # Loop through each of our authorizations
-        for authz in authz_list:
-            # Loop through each authorization's available challenges
-            for i in authz.body.challenges:
-                # Add the DNS-01 challenge if it is found
-                if isinstance(i.chall, challenges.DNS01):
-                    self.__challenges__.append(i)
-
-        # If no challenges were found, throw an error
-        if not self.__challenges__:
-            msg = "ACME server at '{directory}' does not support DNS-01 challenge."
-            raise errors.ChallengeUnavailable(msg.format(directory=(str(self.directory))))
-
-        return self.__challenges__
-
-    def __validate_registration__(self):
-        """
-        Checks that our client is initialized with proper account registration.
-        :return: (none)
-        :raises: InvalidAccount when no account registration is configured for this object
-        """
-        if type(self.__client__) != client.ClientV2:
-            msg = 'No account registration found. You must register a new account or load an existing account first.'
-            raise errors.InvalidAccount(msg)
-
-    def __validate_email__(self):
-        """
-        Checks that our client is initialized with proper account email.
-        :return: (none)
-        :raises: InvalidEmail when no account email is configured for this object.
-        """
-        if not self.email:
-            msg = 'No account email found. You must set the email value first.'
-            raise errors.InvalidEmail(msg)
-
-    def __validate_verification_tokens__(self):
-        """
-        Checks that our client object has valid verification tokens.
-        :return: (none)
-        :raises: InvalidValidation when no verification tokens are issued for this object.
-        """
-        if not self.__verification_tokens__:
-            msg = 'No verification tokens found. You must run request_verification_tokens() first.'
-            raise errors.InvalidVerificationToken(msg)
-
-    def __validate_domains__(self):
-        """
-        Checks that our client is initialized with valid domain names.
-        :return: (none)
-        :raises: InvalidDomain when no domains are specified, domains is not list, or domain is not RFC2181 compliant.
-        """
-        if not self.domains:
-            msg = 'No domains found. You must set a domains value first.'
-            raise errors.InvalidDomain(msg)
-        if type(self.domains) != list:
-            msg = "Domains must be rtype 'list'."
-            raise errors.InvalidDomain(msg)
-        for domain in self.domains:
-            if not validators.domain(domain):
-                msg = "Invalid domain name '{domain}'. Domain name must adhere to RFC2181.".format(domain=domain)
-                raise errors.InvalidDomain(msg)
-
-    def __validate_directory__(self):
-        """
-        Checks that our client object has a valid ACME server directory URL.
-        :return: (none)
-        :raises: InvalidACMEDirectoryURL when no directory URL is set.
-        """
-        if not self.directory:
-            msg = 'No ACME server directory URL. You must set a directory value first.'
-            raise errors.InvalidACMEDirectoryURL(msg)
-
-    def __validate_certificate__(self):
-        """
-        Checks that our client object holds an issued certificate.
-        :return: (none)
-        :raises: InvalidCertificate when no certificate exists for this object.
-        """
-        if not self.certificate:
-            msg = 'No certificate found. You must load or request a certificate first.'
-            raise errors.InvalidCertificate(msg)
-
-    def __validate_private_key__(self):
-        """
-        Checks that our client is initialized with a valid private key.
-        :return: (none)
-        :raises: InvalidPrivateKey when no private exists for this object.
-        """
-        if not self.private_key:
-            msg = 'No private found. You must generate a private key first.'
-            raise errors.InvalidPrivateKey(msg)
-
-    def __format_verification_tokens__(self):
-        """
-        Formats the FQDNs the ACME server expects and their corresponding verification token to upload to DNS.
-        :return: (list) a list of tuples. First value is the FQDN, second value is the verification token.
-        """
-        self.__validate_domains__()
-        self.__validate_verification_tokens__()
-        groupings = []
-
-        # Loop through each domain and group it with it's corresponding verification token
-        for i, domain in enumerate(self.domains):
-            groupings.append((self.DNS_LABEL + '.' + domain, self.__verification_tokens__[i]))
-
-        self.verification_tokens = groupings
-        return groupings
-</code></pre>
-  </div>
-</div>
-
-
-      <div class="class">
-          <h3>Ancestors (in MRO)</h3>
-          <ul class="class_list">
-          <li><a href="#simple_acme_dns.ACMEClient">ACMEClient</a></li>
-          <li>builtins.object</li>
-          </ul>
-          <h3>Static methods</h3>
-            
-  <div class="item">
-    <div class="name def" id="simple_acme_dns.ACMEClient.__init__">
-    <p>def <span class="ident">__init__</span>(</p><p>self, domains=None, email=None, directory=None, nameservers=None, new_account=False, generate_csr=False)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><ul>
 <li>
 <p>:param <code>domains</code> [<code>list</code>]: FQDNs to list in the certificate (SANS).</p>
 </li>
@@ -2353,96 +740,746 @@ running the <code>generate_csr()</code> method.</p>
 will be required if True.</p>
 </li>
 </ul>
-<h2>Example:</h2>
-<p>```python</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>import simple_acme_dns
-client = simple_acme_dns.ACMEClient(
-...     domains=["test1.example.com", "test2.example.com"],
-...     email="example@example.com",
-...     directory="https://acme-staging-v02.api.letsencrypt.org/directory",
-...     nameservers=["8.8.8.8", "1.1.1.1"],
+<h2 id="example">Example:</h2>
+<pre><code class="language-python">&gt;&gt;&gt; import simple_acme_dns
+&gt;&gt;&gt; client = simple_acme_dns.ACMEClient(
+...     domains=[&quot;test1.example.com&quot;, &quot;test2.example.com&quot;],
+...     email=&quot;example@example.com&quot;,
+...     directory=&quot;https://acme-staging-v02.api.letsencrypt.org/directory&quot;,
+...     nameservers=[&quot;8.8.8.8&quot;, &quot;1.1.1.1&quot;],
 ...     new_account=True,
 ...     generate_csr=True
 ... )
-```</p>
-</blockquote>
-</blockquote>
-</blockquote></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-simple_acme_dns.ACMEClient.__init__', this);">Show source &equiv;</a></p>
-  <div id="source-simple_acme_dns.ACMEClient.__init__" class="source">
-    <pre><code>def __init__(
-        self, domains=None, email=None, directory=None, nameservers=None, new_account=False, generate_csr=False
-):
-    """
-    - :param `domains` [`list`]: FQDNs to list in the certificate (SANS).\n
-    - :param `email` [`str`]: a valid email address to register new ACME accounts with.\n
-    - :param `directory` [`str`]: the ACME directory URL.\n
-    - :param `nameservers` [`list`]: nameservers to use when querying DNS. Defaults to system nameservers.\n
-    - :param `new_account` [`bool`]: automatically register a new account upon object creation. A `directory` and
-    `email` value will be required if True.\n
-    - :param `generate_csr` [`bool`]: generate a new private key and CSR upon object creation. A `domains` value
-    will be required if True.\n\n
-    ## Example:\n
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ACMEClient:
+    &#34;&#34;&#34;
+    A basic ACME client object to interface with a CA using the ACME DNS-01 challenge.\n
+    - :var `certificate` [`bytes`]: the PEM formatted certificate. This value is populated after successfully running
+    the `request_certificate()` methood.\n
+    - :var `private_key` [`bytes`]: the PEM formatted private key. This value is populated after successfully running
+    the `generate_private_key()` method.\n
+    - :var `csr` [`bytes`]: the PEM formatted certificate signing request. This value is populated after successfully
+    running the `generate_csr()` method.\n
+    &#34;&#34;&#34;
+
+    def __init__(
+            self, domains=None, email=None, directory=None, nameservers=None, new_account=False, generate_csr=False
+    ):
+        &#34;&#34;&#34;
+        - :param `domains` [`list`]: FQDNs to list in the certificate (SANS).\n
+        - :param `email` [`str`]: a valid email address to register new ACME accounts with.\n
+        - :param `directory` [`str`]: the ACME directory URL.\n
+        - :param `nameservers` [`list`]: nameservers to use when querying DNS. Defaults to system nameservers.\n
+        - :param `new_account` [`bool`]: automatically register a new account upon object creation. A `directory` and
+        `email` value will be required if True.\n
+        - :param `generate_csr` [`bool`]: generate a new private key and CSR upon object creation. A `domains` value
+        will be required if True.\n\n
+
+        ## Example:\n
+        ```python
+        &gt;&gt;&gt; import simple_acme_dns
+        &gt;&gt;&gt; client = simple_acme_dns.ACMEClient(
+        ...     domains=[&#34;test1.example.com&#34;, &#34;test2.example.com&#34;],
+        ...     email=&#34;example@example.com&#34;,
+        ...     directory=&#34;https://acme-staging-v02.api.letsencrypt.org/directory&#34;,
+        ...     nameservers=[&#34;8.8.8.8&#34;, &#34;1.1.1.1&#34;],
+        ...     new_account=True,
+        ...     generate_csr=True
+        ... )
+        ```
+
+        &#34;&#34;&#34;
+        self.DNS_LABEL = &#39;_acme-challenge&#39;
+        self.domains = domains if domains else []
+        self.email = email
+        self.directory = directory
+        self.certificate = &#39;&#39;.encode()
+        self.private_key = &#39;&#39;.encode()
+        self.csr = &#39;&#39;.encode()
+        self.verification_tokens = []
+        self.account_key = None
+        self.account = None
+        self.account_path = None
+        self.nameservers = nameservers
+        self.__private_key__ = None
+        self.__client__ = None
+        self.__net__ = None
+        self.__directory__ = None
+        self.__order__ = None
+        self.__final_order__ = None
+        self.__verification_tokens__ = []
+        self.__responses__ = []
+        self.__challenges__ = []
+        self.__answers__ = []
+
+        # Automatically create a new account if requested
+        if new_account:
+            self.new_account()
+        # Automatically create a new private key and CSR
+        if generate_csr:
+            self.generate_private_key_and_csr()
+
+    def generate_csr(self):
+        &#34;&#34;&#34;
+        Generates a new CSR using the object&#39;s `domains` and `private_key` values.\n
+        - :return [`bytes`]: the encoded CSR PEM data string. This method will update the `csr` property of the object
+        with the same value.\n
+        - :raises `InvalidDomain`: when no valid `domains` are set.\n
+        - :raises `InvalidPrivateKey`: when no `private_key` exists for this object.\n\n
+
+        ## Example\n
+        ```python
+        &gt;&gt;&gt; client.generate_csr()
+        b&#39;-----BEGIN CERTIFICATE REQUEST-----\\nMIHxMIGZAgECMAAwWTATBgckjkn...&#39;
+        ```
+        &#34;&#34;&#34;
+        self.__validate_domains__()
+        self.__validate_private_key__()
+        self.csr = crypto_util.make_csr(self.private_key, self.domains)
+        return self.csr
+
+    def generate_private_key(self, key_type=&#39;ec256&#39;):
+        &#34;&#34;&#34;
+        Generates a new RSA or EC private key.\n
+        - :param `key_type` [`str`]: the requested `private_key` type. Options are: [`ec256`, `ec384`, `rsa2048`,
+        `rsa4098`]\n
+        - :return [`bytes`]: the encoded private key PEM data string. This method will update the `private_key` property
+         of the object with the same value.\n
+        - :raises `InvalidKeyType`: when an unknown/unsupported `key_type` is requested\n\n
+
+        ## Example\n
+        ```python
+        &gt;&gt;&gt; client.generate_private_key(key_type=&#34;ec384&#34;)
+        b&#39;-----BEGIN EC PRIVATE KEY-----\\nMIGkAgEBBDAZRFNLcQdVJmLh42p8F4D92...&#39;
+        ```
+        &#34;&#34;&#34;
+        # Generate a EC256 private key
+        if key_type == &#39;ec256&#39;:
+            key = ec.generate_private_key(ec.SECP256R1(), default_backend())
+            self.private_key = key.private_bytes(
+                encoding=Encoding.PEM,
+                format=PrivateFormat.TraditionalOpenSSL,
+                encryption_algorithm=NoEncryption())
+        # Generate a EC384 private key
+        elif key_type == &#39;ec384&#39;:
+            key = ec.generate_private_key(ec.SECP384R1(), default_backend())
+            self.private_key = key.private_bytes(
+                encoding=Encoding.PEM,
+                format=PrivateFormat.TraditionalOpenSSL,
+                encryption_algorithm=NoEncryption()
+            )
+        # Generate a RSA2048 private key
+        elif key_type == &#39;rsa2048&#39;:
+            key = OpenSSL.crypto.PKey()
+            key.generate_key(OpenSSL.crypto.TYPE_RSA, 2048)
+            self.private_key = OpenSSL.crypto.dump_privatekey(OpenSSL.crypto.FILETYPE_PEM, key)
+        # Generate a RSA4098 private key
+        elif key_type == &#39;rsa4098&#39;:
+            key = OpenSSL.crypto.PKey()
+            key.generate_key(OpenSSL.crypto.TYPE_RSA, 4096)
+            self.private_key = OpenSSL.crypto.dump_privatekey(OpenSSL.crypto.FILETYPE_PEM, key)
+        # Otherwise, the requested key type is not supported. Throw an error
+        else:
+            options = [&#39;ec256&#39;, &#39;ec384&#39;, &#39;rsa2048&#39;, &#39;rsa4098&#39;]
+            msg = &#34;Invalid private key rtype &#39;{key_type}&#39;. Options {options}&#34;.format(key_type=key_type, options=options)
+            raise errors.InvalidKeyType(msg)
+        return self.private_key
+
+    def generate_private_key_and_csr(self, key_type=&#39;ec256&#39;):
+        &#34;&#34;&#34;
+        Generates a new private key and CSR.\n
+        - :param `key_type` [`str`]: the requested `private_key` type. Options are: [`ec256`, `ec384`, `rsa2048`,
+        `rsa4098`]\n
+        - :return [`tuple`]: first value contains the key, the second value contains the CSR. This method will update
+        the `private_key` and `csr` properties of this object with the same values.\n\n
+
+        ## Example\n
+        ```python
+        &gt;&gt;&gt; client.generate_private_key_and_csr(key_type=&#34;rsa2048&#34;)
+        (b&#39;-----BEGIN PRIVATE KEY-----\\nMIIEvAIBA...&#39;, b&#39;-----BEGIN CERTIFICATE REQUEST-----\\nMIHxM...&#39;)
+        ```
+        &#34;&#34;&#34;
+        self.generate_private_key(key_type=key_type)
+        self.generate_csr()
+        return self.private_key, self.csr
+
+    def request_verification_tokens(self):
+        &#34;&#34;&#34;
+        Requests verification tokens from the ACME server for each `domains` value. These tokens must be uploaded as
+        a DNS TXT record for each corresponding domain to complete verification.\n
+        - :return [`list`]: a list of tuples containing the challenge FQDN and it&#39;s corresponding verification token.\n
+        - :raises `InvalidAccount`: when account registration has not been set.\n\n
+
+        ## Example\n
+        ```python
+        &gt;&gt;&gt; client.request_verification_tokens()
+        [
+            (&#39;_acme-challenge.test1.example.com&#39;, &#39;moY32lkdsZ3VWHM1mdM...&#39;),
+            (&#39;_acme-challenge.test2.example.com&#39;, &#39;asldfkjslweietj23_b...&#39;)
+        ]
+        ```
+        &#34;&#34;&#34;
+        self.__validate_registration__()
+        self.__responses__ = []
+        self.__verification_tokens__ = []
+        self.__order__ = self.__client__.new_order(self.csr)
+        self.__challenges__ = self.__verify_challenge__()
+
+        # Loop through each of our challenges and extract the response and verification token from each
+        for i, c in enumerate(self.__challenges__):
+            response, validation = c.response_and_validation(self.__client__.net.key)
+            self.__responses__.append(response)
+            self.__verification_tokens__.append(validation)
+
+        return self.__format_verification_tokens__()
+
+    def request_certificate(self, wait=0, timeout=90):
+        &#34;&#34;&#34;
+        Requests a final verification answer from the ACME server and requests the certificate if verification was
+        successful. If you request the certificate before DNS has propagated and verification fails, you must start
+        the verification process over entirely by requesting new verification tokens.\n
+        - :param `wait` [`int`]: amount of time (in seconds) to wait before requesting a challenge answer from the
+        server. This is only necessary if you are not using the `check_dns_propagation()` method to verify the DNS
+        records exist and would rather wait a specific amount of time.\n
+        - :return [`bytes`]: the PEM encoded certificate. This method will update the `certificate` and `csr` property
+        of this object with the same value.\n
+        - :raises `InvalidAccount`:  when account registration has not been set.\n\n
+
+        ## Example\n
+        ```python
+        &gt;&gt;&gt; client.request_certificate()
+        b&#39;-----BEGIN CERTIFICATE-----\\nMIIEfzCCA2egAwI...
+        ```
+        &#34;&#34;&#34;
+        self.__validate_verification_tokens__()
+        time.sleep(wait)
+        deadline = datetime.datetime.now() + datetime.timedelta(seconds=timeout)
+
+        # For each challenge, request an answer.
+        for i, c in enumerate(self.__challenges__):
+            self.__answers__.append(self.__client__.answer_challenge(c, self.__responses__[i]))
+
+        # Request our final order and save the certificate if successful
+        self.__final_order__ = self.__client__.poll_and_finalize(self.__order__, deadline=deadline)
+        self.certificate = self.__final_order__.fullchain_pem.encode()
+        return self.certificate
+
+    def revoke_certificate(self, reason=0):
+        &#34;&#34;&#34;
+        Attempts to revoke the existing certificate from the issuing ACME server.\n
+        - :param `reason` [`int`]: the numeric reason for revocation identifier.\n
+        - :return [`none`]:\n
+        - :raises `InvalidCertificate`: if this object does not contain a certificate.\n
+        - :raises `acme.errors.ConflictError`: if the certificate is already revoked.\n\n
+
+        ## Example\n
+        ```python
+        &gt;&gt;&gt; client.revoke_certificate()
+        ```
+        &#34;&#34;&#34;
+        self.__validate_certificate__()
+
+        # Load the certificate crypto object and request revocation from the ACME server
+        cert_obj = jose.ComparableX509(OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, self.certificate))
+        self.__client__.revoke(cert_obj, reason)
+
+    def new_account(self):
+        &#34;&#34;&#34;
+        Registers a new ACME account at the set ACME `directory` URL. By running this method, you are agreeing to the
+        ACME servers terms of use.\n
+        - :return [`none`]: the account and account_key properties will be updated with the new account registration.\n
+        - :raises `InvalidDirectory`: if this object does not contain a valid ACME directory URL.\n
+        - :raises `InvalidEmail`: if this object does not contain a valid email address to use during registration.\n\n
+
+        ## Example\n
+        ```python
+        &gt;&gt;&gt; client.new_account()
+        ```
+        &#34;&#34;&#34;
+        self.__validate_directory__()
+        self.__validate_email__()
+
+        # Generate a new RSA2048 account key
+        rsa_key = rsa.generate_private_key(public_exponent=65537, key_size=2048, backend=(default_backend()))
+        self.account_key = jose.JWKRSA(key=rsa_key)
+
+        # Initialize our ACME client object
+        self.__net__ = client.ClientNetwork(self.account_key, user_agent=&#39;simple_acme_dns/1.0.0&#39;)
+        self.__directory__ = messages.Directory.from_json(self.__net__.get(self.directory).json())
+        self.__client__ = client.ClientV2(self.__directory__, net=self.__net__)
+
+        # Complete registration
+        registration = messages.NewRegistration.from_data(email=self.email, terms_of_service_agreed=True)
+        self.account = self.__client__.new_account(registration)
+
+    def deactivate_account(self, delete=True):
+        &#34;&#34;&#34;
+        Deactivates the current account registration. This action is irreversible.\n
+        - :param `delete` [`bool`]: indicate whether any associated account file on the local system should also be
+        deleted after deactivation.\n
+        - :return [`none`]:\n
+        - :raises `InvalidAccount`: when account registration has not been set.\n\n
+
+        ## Example\n
+        ```python
+        &gt;&gt;&gt; client.deactivate_account()
+        ```
+        &#34;&#34;&#34;
+        self.__validate_registration__()
+
+        # Tell the ACME server to deactivate this account
+        self.__client__.deactivate_registration(self.account)
+
+        # If this object contains a linked file path, and deletion is requested, delete the linked file
+        if self.account_path and delete:
+            pathlib.Path(self.account_path).unlink(missing_ok=True)
+
+    def export_account(self, save_certificate=True, save_private_key=False):
+        &#34;&#34;&#34;
+        Exports the object as a JSON string. This is useful when using a framework like Django and need to store account
+        data as a string in the database.\n
+        - :param `save_certificate` [`bool`]: indicate whether the certificate should also be stored in the
+        JSON string.\n
+        - :param `save_private_key` [`bool`]: indicate whether the private key should also be stored in the
+        JSON string.\n
+        - :return [`str`]: the current object encoded as a JSON string.\n
+        - :raises `InvalidAccount`: when account registration has not been set.\n
+        - :raises `InvalidDomain`: when no valid domains are set.\n\n
+
+        ## Example\n
+        ```python
+        &gt;&gt;&gt; client.export_account(save_certificate=True, save_private_key=True)
+        &#39;{&#34;account&#34;: {&#34;body&#34;: {&#34;key&#34;: {&#34;n&#34;: &#34;vtByzpW...&#34;}}}}&#39;
+        ```
+        &#34;&#34;&#34;
+        self.__validate_registration__()
+        self.__validate_domains__()
+
+        # Format our object into a serializable format
+        acct_data = {
+            &#39;account&#39;: self.account.to_json(),
+            &#39;account_key&#39;: self.account_key.json_dumps(),
+            &#39;directory&#39;: self.directory,
+            &#39;domains&#39;: self.domains,
+            &#39;certificate&#39;: self.certificate.decode() if save_certificate else &#39;&#39;,
+            &#39;private_key&#39;: self.private_key.decode() if save_private_key else &#39;&#39;
+        }
+
+        return json.dumps(acct_data)
+
+    def export_account_to_file(self, path=&#39;.&#39;, name=&#39;account.json&#39;, save_certificate=True, save_private_key=False):
+        &#34;&#34;&#34;
+        Exports our object as a JSON file.\n
+        - :param `path` [`str`]: the directory path to save the account file. Defaults to current working directory.\n
+        - :param `name` [`str`]: the file name. Defaults to `account.json`.\n
+        - :param `save_certificate` [`bool`]: indicate whether the certificate should also be stored in the JSON file.\n
+        - :param `save_private_key` [`bool`]: indicate whether the private key should also be stored in the JSON file.\n
+        - :return [`none`]: the file will be created at the specified path if an exception was not raised.\n
+        - :raises `InvalidPath`: when the requested directory path to export the account to does not exist.\n\n
+
+        ## Example\n
+        ```python
+        &gt;&gt;&gt; client.export_account_to_file(
+        ...     path=&#34;/tmp/&#34;,
+        ...     name=&#34;my_acme_account.json&#34;,
+        ...     save_certificate=True,
+        ...     save_private_key=True
+        ... )
+        ```
+        &#34;&#34;&#34;
+        self.__validate_registration__()
+        self.__validate_domains__()
+        dir_path = pathlib.Path(path).absolute()
+
+        # Ensure our path is an existing directory, throw an error otherwise
+        if dir_path.is_dir():
+            # Open the file and write our JSON content
+            with open(str(dir_path.joinpath(name)), &#39;w&#39;) as (wa):
+                wa.write(self.export_account(save_certificate, save_private_key))
+                self.account_path = str(dir_path.joinpath(name))
+        else:
+            msg = &#34;Directory at &#39;{path}&#39; does not exist.&#34;.format(path=path)
+            raise errors.InvalidPath(msg)
+
+    @staticmethod
+    def load_account(json_data):
+        &#34;&#34;&#34;
+        Loads an existing account from a JSON data string created by the `export_account()` method.\n
+        - :param `json_data` [`str`]: the JSON account data string.\n
+        - :return [`ACMEClient`]: the loaded ACMEClient object.\n\n
+
+        ## Example\n
+        ```python
+        &gt;&gt;&gt; client = simple_acme_dns.ACMEClient.load_account(&#39;{&#34;account&#34;: {&#34;body&#34;: {&#34;key&#34;: {&#34;n&#34;: &#34;vtByzpW...&#34;}}}}&#39;)
+        ```
+        &#34;&#34;&#34;
+        acct_data = json.loads(json_data)
+        obj = ACMEClient()
+
+        # Format the serialized data back into the object
+        obj.directory = acct_data.get(&#39;directory&#39;, None)
+        obj.domains = acct_data.get(&#39;domains&#39;, [])
+        obj.certificate = acct_data.get(&#39;certificate&#39;, &#39;&#39;).encode()
+        obj.private_key = acct_data.get(&#39;private_key&#39;, &#39;&#39;).encode()
+        obj.email = acct_data[&#39;account&#39;][&#39;body&#39;][&#39;contact&#39;][0].replace(&#39;mailto:&#39;, &#39;&#39;)
+        obj.account = messages.RegistrationResource.json_loads(json.dumps(acct_data[&#39;account&#39;]))
+        obj.account_key = jose.JWKRSA.json_loads(acct_data[&#39;account_key&#39;])
+
+        return obj
+
+    @staticmethod
+    def load_account_from_file(filepath):
+        &#34;&#34;&#34;
+        Loads an existing account from a JSON file created by the `export_account_to_file()` method.\n
+        - :param `filepath` [`str`]: the file path to the account JSON file.\n
+        - :return [`ACMEClient`]: the loaded ACMEClient object.\n
+        - :raises `InvalidPath`: when the file path of the account JSON or key does not exist.\n
+
+        ## Example\n
+        ```python
+        &gt;&gt;&gt; client = simple_acme_dns.ACMEClient.load_account(&#39;/tmp/my_acme_account.json&#39;)
+        ```
+        &#34;&#34;&#34;
+        filepath = pathlib.Path(filepath).absolute()
+
+        # Ensure our file exists, throw an error otherwise
+        if filepath.exists():
+            # Open our file and read it&#39;s contents.
+            with open(filepath, &#39;r&#39;) as (rj):
+                json_data = rj.read()
+
+            # Load contents into a new object.
+            obj = ACMEClient.load_account(json_data)
+            obj.account_path = filepath
+        else:
+            raise errors.InvalidPath(&#34;No JSON account file found at &#39;{path}&#39;&#34;.format(path=(str(filepath))))
+
+        # Re-initialize the ACME client and registration
+        obj.__net__ = client.ClientNetwork(obj.account_key, user_agent=&#39;simple_acme_dns/1.0.0&#39;)
+        obj.__directory__ = messages.Directory.from_json(obj.__net__.get(obj.directory).json())
+        obj.__client__ = client.ClientV2(obj.__directory__, net=obj.__net__)
+        obj.account = obj.__client__.query_registration(obj.account)
+
+        return obj
+
+    def check_dns_propagation(self, timeout=300, interval=2, authoritative=False, round_robin=True, verbose=False):
+        &#34;&#34;&#34;
+        Check&#39;s each of our domain&#39;s TXT record until the value matches it&#39;s verification token or until the timeout is
+        reached. This method should be executed before executing the `request_certificates()` method. This method can
+        take several minutes to complete, ensure you adjust the timeout value accordingly.\n
+        - :param `timeout` [`int`]: the amount of time (in seconds) to continue trying to verify the TXT records.\n
+        - :param `interval` [`float`]: the amount of time (in seconds) between DNS requests per domain.\n
+        - :param `authoritative` [`bool`]: identify and use the authoritative nameserver for each domain instead of the
+        objects `nameservers` property values.\n
+        - :param `round_robin` [`bool`]: rotate between each nameserver instead of the default failover method.\n
+        - :param `verbose` [`bool`]: print DNS answers to the console.\n
+        - :return [`bool`]: indicates whether or not all of the `domains` correctly return their verification token in
+        their TXT record.\n\n
+
+        ## Example\n
+        ```python
+        &gt;&gt;&gt; client.nameservers = [&#34;8.8.8.8&#34;, &#34;1.1.1.1&#34;]
+        &gt;&gt;&gt; client.check_dns_propagation(
+        ...     timeout=180,
+        ...     interval=5,
+        ...     authoritative=False,
+        ...     round_robin=True,
+        ...     verbose=False
+        ... )
+        Token &#39;moY3Cd0...&#39; for &#39;_acme-challenge.test1.example.com&#39; not found in [] via 8.8.8.8
+        Token &#39;O32-fd_...&#39; for &#39;_acme-challenge.test2.example.com&#39; not found in [] via 8.8.8.8
+        Token &#39;moY3Cd0...&#39; for &#39;_acme-challenge.test1.example.com&#39; not found in [] via 1.1.1.1
+        Token &#39;O32-fd_...&#39; for &#39;_acme-challenge.test2.example.com&#39; found in [&#39;O32-fd_...&#39;] via 1.1.1.1
+        Token &#39;moY3Cd0...&#39; for &#39;_acme-challenge.test1.example.com&#39; not found in [] via 8.8.8.8
+        Token &#39;moY3Cd0...&#39; for &#39;_acme-challenge.test1.example.com&#39; not found in [] via 1.1.1.1
+        Token &#39;moY3Cd0...&#39; for &#39;_acme-challenge.test1.example.com&#39; found in [&#39;moY3Cd0...&#39;] via 8.8.8.8
+        True
+        ```
+        &#34;&#34;&#34;
+        self.__validate_verification_tokens__()
+        verified = []
+        resolvers = []
+        timeout = datetime.datetime.now() + datetime.timedelta(seconds=timeout)
+
+        # Create a DNS resolver object for each domain being verified
+        for rdomain, rtoken in self.verification_tokens:
+            r = tools.DNSQuery(
+                rdomain,
+                rtype=&#39;TXT&#39;,
+                authoritative=authoritative,
+                nameservers=self.nameservers,
+                round_robin=round_robin
+            )
+            resolvers.append((rdomain, rtoken, r))
+
+        # Loop until we have exceeded our timeout value
+        while datetime.datetime.now() &lt; timeout:
+            # Loop through each domain being verified
+            for domain, token, resolver in resolvers:
+                # Only try to verify the domain if it has not already been verified
+                if domain not in verified:
+                    resolver.resolve()
+                    # Save this domain as verified if our token was found in the TXT record values
+                    if token in resolver.values:
+                        verified.append(domain)
+                    # If verbose mode is enabled, print the results to the console
+                    if verbose:
+                        msg = &#34;Token &#39;{token}&#39; for &#39;{domain}&#39; {action} in {values} via {ns}&#34;.format(
+                            token=token,
+                            domain=domain,
+                            action=(&#39;found&#39; if domain in verified else &#39;not found&#39;),
+                            values=resolver.values,
+                            ns=resolver.last_nameserver
+                        )
+                        print(msg)
+
+            # If all our domains have been verified
+            if len(verified) == len(self.verification_tokens):
+                return True
+
+            # Avoid flooding the DNS server(s)
+            time.sleep(interval)
+
+        return False
+
+    def __verify_challenge__(self):
+        &#34;&#34;&#34;
+        Checks that the DNS-01 challenge is supported by the ACME server and initializes the challenge. This is an
+        internal method and is not intended for use otherwise.
+        :return: (list) a list of acme.challenges.ChallengeBody objects
+        :raises: ChallengeUnavailable when the specified ACME server does not support the DNS-01 challenge
+        &#34;&#34;&#34;
+        self.__challenges__ = []
+        authz_list = self.__order__.authorizations
+
+        # Loop through each of our authorizations
+        for authz in authz_list:
+            # Loop through each authorization&#39;s available challenges
+            for i in authz.body.challenges:
+                # Add the DNS-01 challenge if it is found
+                if isinstance(i.chall, challenges.DNS01):
+                    self.__challenges__.append(i)
+
+        # If no challenges were found, throw an error
+        if not self.__challenges__:
+            msg = &#34;ACME server at &#39;{directory}&#39; does not support DNS-01 challenge.&#34;
+            raise errors.ChallengeUnavailable(msg.format(directory=(str(self.directory))))
+
+        return self.__challenges__
+
+    def __validate_registration__(self):
+        &#34;&#34;&#34;
+        Checks that our client is initialized with proper account registration.
+        :return: (none)
+        :raises: InvalidAccount when no account registration is configured for this object
+        &#34;&#34;&#34;
+        if type(self.__client__) != client.ClientV2:
+            msg = &#39;No account registration found. You must register a new account or load an existing account first.&#39;
+            raise errors.InvalidAccount(msg)
+
+    def __validate_email__(self):
+        &#34;&#34;&#34;
+        Checks that our client is initialized with proper account email.
+        :return: (none)
+        :raises: InvalidEmail when no account email is configured for this object.
+        &#34;&#34;&#34;
+        if not self.email:
+            msg = &#39;No account email found. You must set the email value first.&#39;
+            raise errors.InvalidEmail(msg)
+
+    def __validate_verification_tokens__(self):
+        &#34;&#34;&#34;
+        Checks that our client object has valid verification tokens.
+        :return: (none)
+        :raises: InvalidValidation when no verification tokens are issued for this object.
+        &#34;&#34;&#34;
+        if not self.__verification_tokens__:
+            msg = &#39;No verification tokens found. You must run request_verification_tokens() first.&#39;
+            raise errors.InvalidVerificationToken(msg)
+
+    def __validate_domains__(self):
+        &#34;&#34;&#34;
+        Checks that our client is initialized with valid domain names.
+        :return: (none)
+        :raises: InvalidDomain when no domains are specified, domains is not list, or domain is not RFC2181 compliant.
+        &#34;&#34;&#34;
+        if not self.domains:
+            msg = &#39;No domains found. You must set a domains value first.&#39;
+            raise errors.InvalidDomain(msg)
+        if type(self.domains) != list:
+            msg = &#34;Domains must be rtype &#39;list&#39;.&#34;
+            raise errors.InvalidDomain(msg)
+        for domain in self.domains:
+            if not validators.domain(domain):
+                msg = &#34;Invalid domain name &#39;{domain}&#39;. Domain name must adhere to RFC2181.&#34;.format(domain=domain)
+                raise errors.InvalidDomain(msg)
+
+    def __validate_directory__(self):
+        &#34;&#34;&#34;
+        Checks that our client object has a valid ACME server directory URL.
+        :return: (none)
+        :raises: InvalidACMEDirectoryURL when no directory URL is set.
+        &#34;&#34;&#34;
+        if not self.directory:
+            msg = &#39;No ACME server directory URL. You must set a directory value first.&#39;
+            raise errors.InvalidACMEDirectoryURL(msg)
+
+    def __validate_certificate__(self):
+        &#34;&#34;&#34;
+        Checks that our client object holds an issued certificate.
+        :return: (none)
+        :raises: InvalidCertificate when no certificate exists for this object.
+        &#34;&#34;&#34;
+        if not self.certificate:
+            msg = &#39;No certificate found. You must load or request a certificate first.&#39;
+            raise errors.InvalidCertificate(msg)
+
+    def __validate_private_key__(self):
+        &#34;&#34;&#34;
+        Checks that our client is initialized with a valid private key.
+        :return: (none)
+        :raises: InvalidPrivateKey when no private exists for this object.
+        &#34;&#34;&#34;
+        if not self.private_key:
+            msg = &#39;No private found. You must generate a private key first.&#39;
+            raise errors.InvalidPrivateKey(msg)
+
+    def __format_verification_tokens__(self):
+        &#34;&#34;&#34;
+        Formats the FQDNs the ACME server expects and their corresponding verification token to upload to DNS.
+        :return: (list) a list of tuples. First value is the FQDN, second value is the verification token.
+        &#34;&#34;&#34;
+        self.__validate_domains__()
+        self.__validate_verification_tokens__()
+        groupings = []
+
+        # Loop through each domain and group it with it&#39;s corresponding verification token
+        for i, domain in enumerate(self.domains):
+            groupings.append((self.DNS_LABEL + &#39;.&#39; + domain, self.__verification_tokens__[i]))
+
+        self.verification_tokens = groupings
+        return groupings</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="simple_acme_dns.ACMEClient.load_account"><code class="name flex">
+<span>def <span class="ident">load_account</span></span>(<span>json_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Loads an existing account from a JSON data string created by the <code>export_account()</code> method.</p>
+<ul>
+<li>
+<p>:param <code>json_data</code> [<code>str</code>]: the JSON account data string.</p>
+</li>
+<li>
+<p>:return [<code>ACMEClient</code>]: the loaded ACMEClient object.</p>
+</li>
+</ul>
+<h2 id="example">Example</h2>
+<pre><code class="language-python">&gt;&gt;&gt; client = simple_acme_dns.ACMEClient.load_account('{&quot;account&quot;: {&quot;body&quot;: {&quot;key&quot;: {&quot;n&quot;: &quot;vtByzpW...&quot;}}}}')
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def load_account(json_data):
+    &#34;&#34;&#34;
+    Loads an existing account from a JSON data string created by the `export_account()` method.\n
+    - :param `json_data` [`str`]: the JSON account data string.\n
+    - :return [`ACMEClient`]: the loaded ACMEClient object.\n\n
+
+    ## Example\n
     ```python
-    >>> import simple_acme_dns
-    >>> client = simple_acme_dns.ACMEClient(
-    ...     domains=["test1.example.com", "test2.example.com"],
-    ...     email="example@example.com",
-    ...     directory="https://acme-staging-v02.api.letsencrypt.org/directory",
-    ...     nameservers=["8.8.8.8", "1.1.1.1"],
-    ...     new_account=True,
-    ...     generate_csr=True
-    ... )
+    &gt;&gt;&gt; client = simple_acme_dns.ACMEClient.load_account(&#39;{&#34;account&#34;: {&#34;body&#34;: {&#34;key&#34;: {&#34;n&#34;: &#34;vtByzpW...&#34;}}}}&#39;)
     ```
-    """
-    self.DNS_LABEL = '_acme-challenge'
-    self.domains = domains if domains else []
-    self.email = email
-    self.directory = directory
-    self.certificate = ''.encode()
-    self.private_key = ''.encode()
-    self.csr = ''.encode()
-    self.verification_tokens = []
-    self.account_key = None
-    self.account = None
-    self.account_path = None
-    self.nameservers = nameservers
-    self.__private_key__ = None
-    self.__client__ = None
-    self.__net__ = None
-    self.__directory__ = None
-    self.__order__ = None
-    self.__final_order__ = None
-    self.__verification_tokens__ = []
-    self.__responses__ = []
-    self.__challenges__ = []
-    self.__answers__ = []
-    # Automatically create a new account if requested
-    if new_account:
-        self.new_account()
-    # Automatically create a new private key and CSR
-    if generate_csr:
-        self.generate_private_key_and_csr()
-</code></pre>
-  </div>
-</div>
+    &#34;&#34;&#34;
+    acct_data = json.loads(json_data)
+    obj = ACMEClient()
 
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="simple_acme_dns.ACMEClient.check_dns_propagation">
-    <p>def <span class="ident">check_dns_propagation</span>(</p><p>self, timeout=300, interval=2, authoritative=False, round_robin=True, verbose=False)</p>
-    </div>
-    
+    # Format the serialized data back into the object
+    obj.directory = acct_data.get(&#39;directory&#39;, None)
+    obj.domains = acct_data.get(&#39;domains&#39;, [])
+    obj.certificate = acct_data.get(&#39;certificate&#39;, &#39;&#39;).encode()
+    obj.private_key = acct_data.get(&#39;private_key&#39;, &#39;&#39;).encode()
+    obj.email = acct_data[&#39;account&#39;][&#39;body&#39;][&#39;contact&#39;][0].replace(&#39;mailto:&#39;, &#39;&#39;)
+    obj.account = messages.RegistrationResource.json_loads(json.dumps(acct_data[&#39;account&#39;]))
+    obj.account_key = jose.JWKRSA.json_loads(acct_data[&#39;account_key&#39;])
 
-    
-  
-    <div class="desc"><p>Check's each of our domain's TXT record until the value matches it's verification token or until the timeout is
+    return obj</code></pre>
+</details>
+</dd>
+<dt id="simple_acme_dns.ACMEClient.load_account_from_file"><code class="name flex">
+<span>def <span class="ident">load_account_from_file</span></span>(<span>filepath)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Loads an existing account from a JSON file created by the <code>export_account_to_file()</code> method.</p>
+<ul>
+<li>
+<p>:param <code>filepath</code> [<code>str</code>]: the file path to the account JSON file.</p>
+</li>
+<li>
+<p>:return [<code>ACMEClient</code>]: the loaded ACMEClient object.</p>
+</li>
+<li>
+<p>:raises <code>InvalidPath</code>: when the file path of the account JSON or key does not exist.</p>
+</li>
+</ul>
+<h2 id="example">Example</h2>
+<pre><code class="language-python">&gt;&gt;&gt; client = simple_acme_dns.ACMEClient.load_account('/tmp/my_acme_account.json')
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def load_account_from_file(filepath):
+    &#34;&#34;&#34;
+    Loads an existing account from a JSON file created by the `export_account_to_file()` method.\n
+    - :param `filepath` [`str`]: the file path to the account JSON file.\n
+    - :return [`ACMEClient`]: the loaded ACMEClient object.\n
+    - :raises `InvalidPath`: when the file path of the account JSON or key does not exist.\n
+
+    ## Example\n
+    ```python
+    &gt;&gt;&gt; client = simple_acme_dns.ACMEClient.load_account(&#39;/tmp/my_acme_account.json&#39;)
+    ```
+    &#34;&#34;&#34;
+    filepath = pathlib.Path(filepath).absolute()
+
+    # Ensure our file exists, throw an error otherwise
+    if filepath.exists():
+        # Open our file and read it&#39;s contents.
+        with open(filepath, &#39;r&#39;) as (rj):
+            json_data = rj.read()
+
+        # Load contents into a new object.
+        obj = ACMEClient.load_account(json_data)
+        obj.account_path = filepath
+    else:
+        raise errors.InvalidPath(&#34;No JSON account file found at &#39;{path}&#39;&#34;.format(path=(str(filepath))))
+
+    # Re-initialize the ACME client and registration
+    obj.__net__ = client.ClientNetwork(obj.account_key, user_agent=&#39;simple_acme_dns/1.0.0&#39;)
+    obj.__directory__ = messages.Directory.from_json(obj.__net__.get(obj.directory).json())
+    obj.__client__ = client.ClientV2(obj.__directory__, net=obj.__net__)
+    obj.account = obj.__client__.query_registration(obj.account)
+
+    return obj</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="simple_acme_dns.ACMEClient.check_dns_propagation"><code class="name flex">
+<span>def <span class="ident">check_dns_propagation</span></span>(<span>self, timeout=300, interval=2, authoritative=False, round_robin=True, verbose=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Check's each of our domain's TXT record until the value matches it's verification token or until the timeout is
 reached. This method should be executed before executing the <code>request_certificates()</code> method. This method can
 take several minutes to complete, ensure you adjust the timeout value accordingly.</p>
 <ul>
@@ -2467,37 +1504,31 @@ objects <code>nameservers</code> property values.</p>
 their TXT record.</p>
 </li>
 </ul>
-<h2>Example</h2>
-<p>```python</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>client.nameservers = ["8.8.8.8", "1.1.1.1"]
-client.check_dns_propagation(
+<h2 id="example">Example</h2>
+<pre><code class="language-python">&gt;&gt;&gt; client.nameservers = [&quot;8.8.8.8&quot;, &quot;1.1.1.1&quot;]
+&gt;&gt;&gt; client.check_dns_propagation(
 ...     timeout=180,
 ...     interval=5,
 ...     authoritative=False,
 ...     round_robin=True,
 ...     verbose=False
 ... )
-Token 'moY3Cd0...' for '<em>acme-challenge.test1.example.com' not found in [] via 8.8.8.8
-Token 'O32-fd</em>...' for '<em>acme-challenge.test2.example.com' not found in [] via 8.8.8.8
+Token 'moY3Cd0...' for '_acme-challenge.test1.example.com' not found in [] via 8.8.8.8
+Token 'O32-fd_...' for '_acme-challenge.test2.example.com' not found in [] via 8.8.8.8
 Token 'moY3Cd0...' for '_acme-challenge.test1.example.com' not found in [] via 1.1.1.1
-Token 'O32-fd</em>...' for '<em>acme-challenge.test2.example.com' found in ['O32-fd</em>...'] via 1.1.1.1
+Token 'O32-fd_...' for '_acme-challenge.test2.example.com' found in ['O32-fd_...'] via 1.1.1.1
 Token 'moY3Cd0...' for '_acme-challenge.test1.example.com' not found in [] via 8.8.8.8
 Token 'moY3Cd0...' for '_acme-challenge.test1.example.com' not found in [] via 1.1.1.1
 Token 'moY3Cd0...' for '_acme-challenge.test1.example.com' found in ['moY3Cd0...'] via 8.8.8.8
 True
-```</p>
-</blockquote>
-</blockquote>
-</blockquote></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-simple_acme_dns.ACMEClient.check_dns_propagation', this);">Show source &equiv;</a></p>
-  <div id="source-simple_acme_dns.ACMEClient.check_dns_propagation" class="source">
-    <pre><code>def check_dns_propagation(self, timeout=300, interval=2, authoritative=False, round_robin=True, verbose=False):
-    """
-    Check's each of our domain's TXT record until the value matches it's verification token or until the timeout is
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def check_dns_propagation(self, timeout=300, interval=2, authoritative=False, round_robin=True, verbose=False):
+    &#34;&#34;&#34;
+    Check&#39;s each of our domain&#39;s TXT record until the value matches it&#39;s verification token or until the timeout is
     reached. This method should be executed before executing the `request_certificates()` method. This method can
     take several minutes to complete, ensure you adjust the timeout value accordingly.\n
     - :param `timeout` [`int`]: the amount of time (in seconds) to continue trying to verify the TXT records.\n
@@ -2508,42 +1539,45 @@ True
     - :param `verbose` [`bool`]: print DNS answers to the console.\n
     - :return [`bool`]: indicates whether or not all of the `domains` correctly return their verification token in
     their TXT record.\n\n
+
     ## Example\n
     ```python
-    >>> client.nameservers = ["8.8.8.8", "1.1.1.1"]
-    >>> client.check_dns_propagation(
+    &gt;&gt;&gt; client.nameservers = [&#34;8.8.8.8&#34;, &#34;1.1.1.1&#34;]
+    &gt;&gt;&gt; client.check_dns_propagation(
     ...     timeout=180,
     ...     interval=5,
     ...     authoritative=False,
     ...     round_robin=True,
     ...     verbose=False
     ... )
-    Token 'moY3Cd0...' for '_acme-challenge.test1.example.com' not found in [] via 8.8.8.8
-    Token 'O32-fd_...' for '_acme-challenge.test2.example.com' not found in [] via 8.8.8.8
-    Token 'moY3Cd0...' for '_acme-challenge.test1.example.com' not found in [] via 1.1.1.1
-    Token 'O32-fd_...' for '_acme-challenge.test2.example.com' found in ['O32-fd_...'] via 1.1.1.1
-    Token 'moY3Cd0...' for '_acme-challenge.test1.example.com' not found in [] via 8.8.8.8
-    Token 'moY3Cd0...' for '_acme-challenge.test1.example.com' not found in [] via 1.1.1.1
-    Token 'moY3Cd0...' for '_acme-challenge.test1.example.com' found in ['moY3Cd0...'] via 8.8.8.8
+    Token &#39;moY3Cd0...&#39; for &#39;_acme-challenge.test1.example.com&#39; not found in [] via 8.8.8.8
+    Token &#39;O32-fd_...&#39; for &#39;_acme-challenge.test2.example.com&#39; not found in [] via 8.8.8.8
+    Token &#39;moY3Cd0...&#39; for &#39;_acme-challenge.test1.example.com&#39; not found in [] via 1.1.1.1
+    Token &#39;O32-fd_...&#39; for &#39;_acme-challenge.test2.example.com&#39; found in [&#39;O32-fd_...&#39;] via 1.1.1.1
+    Token &#39;moY3Cd0...&#39; for &#39;_acme-challenge.test1.example.com&#39; not found in [] via 8.8.8.8
+    Token &#39;moY3Cd0...&#39; for &#39;_acme-challenge.test1.example.com&#39; not found in [] via 1.1.1.1
+    Token &#39;moY3Cd0...&#39; for &#39;_acme-challenge.test1.example.com&#39; found in [&#39;moY3Cd0...&#39;] via 8.8.8.8
     True
     ```
-    """
+    &#34;&#34;&#34;
     self.__validate_verification_tokens__()
     verified = []
     resolvers = []
     timeout = datetime.datetime.now() + datetime.timedelta(seconds=timeout)
+
     # Create a DNS resolver object for each domain being verified
     for rdomain, rtoken in self.verification_tokens:
         r = tools.DNSQuery(
             rdomain,
-            rtype='TXT',
+            rtype=&#39;TXT&#39;,
             authoritative=authoritative,
             nameservers=self.nameservers,
             round_robin=round_robin
         )
         resolvers.append((rdomain, rtoken, r))
+
     # Loop until we have exceeded our timeout value
-    while datetime.datetime.now() < timeout:
+    while datetime.datetime.now() &lt; timeout:
         # Loop through each domain being verified
         for domain, token, resolver in resolvers:
             # Only try to verify the domain if it has not already been verified
@@ -2554,36 +1588,30 @@ True
                     verified.append(domain)
                 # If verbose mode is enabled, print the results to the console
                 if verbose:
-                    msg = "Token '{token}' for '{domain}' {action} in {values} via {ns}".format(
+                    msg = &#34;Token &#39;{token}&#39; for &#39;{domain}&#39; {action} in {values} via {ns}&#34;.format(
                         token=token,
                         domain=domain,
-                        action=('found' if domain in verified else 'not found'),
+                        action=(&#39;found&#39; if domain in verified else &#39;not found&#39;),
                         values=resolver.values,
                         ns=resolver.last_nameserver
                     )
                     print(msg)
+
         # If all our domains have been verified
         if len(verified) == len(self.verification_tokens):
             return True
+
         # Avoid flooding the DNS server(s)
         time.sleep(interval)
-    return False
-</code></pre>
-  </div>
-</div>
 
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="simple_acme_dns.ACMEClient.deactivate_account">
-    <p>def <span class="ident">deactivate_account</span>(</p><p>self, delete=True)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Deactivates the current account registration. This action is irreversible.</p>
+    return False</code></pre>
+</details>
+</dd>
+<dt id="simple_acme_dns.ACMEClient.deactivate_account"><code class="name flex">
+<span>def <span class="ident">deactivate_account</span></span>(<span>self, delete=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Deactivates the current account registration. This action is irreversible.</p>
 <ul>
 <li>
 <p>:param <code>delete</code> [<code>bool</code>]: indicate whether any associated account file on the local system should also be
@@ -2596,53 +1624,41 @@ deleted after deactivation.</p>
 <p>:raises <code>InvalidAccount</code>: when account registration has not been set.</p>
 </li>
 </ul>
-<h2>Example</h2>
-<p>```python</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>client.deactivate_account()
-```</p>
-</blockquote>
-</blockquote>
-</blockquote></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-simple_acme_dns.ACMEClient.deactivate_account', this);">Show source &equiv;</a></p>
-  <div id="source-simple_acme_dns.ACMEClient.deactivate_account" class="source">
-    <pre><code>def deactivate_account(self, delete=True):
-    """
+<h2 id="example">Example</h2>
+<pre><code class="language-python">&gt;&gt;&gt; client.deactivate_account()
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def deactivate_account(self, delete=True):
+    &#34;&#34;&#34;
     Deactivates the current account registration. This action is irreversible.\n
     - :param `delete` [`bool`]: indicate whether any associated account file on the local system should also be
     deleted after deactivation.\n
     - :return [`none`]:\n
     - :raises `InvalidAccount`: when account registration has not been set.\n\n
+
     ## Example\n
     ```python
-    >>> client.deactivate_account()
+    &gt;&gt;&gt; client.deactivate_account()
     ```
-    """
+    &#34;&#34;&#34;
     self.__validate_registration__()
+
     # Tell the ACME server to deactivate this account
     self.__client__.deactivate_registration(self.account)
+
     # If this object contains a linked file path, and deletion is requested, delete the linked file
     if self.account_path and delete:
-        pathlib.Path(self.account_path).unlink(missing_ok=True)
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="simple_acme_dns.ACMEClient.export_account">
-    <p>def <span class="ident">export_account</span>(</p><p>self, save_certificate=True, save_private_key=False)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Exports the object as a JSON string. This is useful when using a framework like Django and need to store account
+        pathlib.Path(self.account_path).unlink(missing_ok=True)</code></pre>
+</details>
+</dd>
+<dt id="simple_acme_dns.ACMEClient.export_account"><code class="name flex">
+<span>def <span class="ident">export_account</span></span>(<span>self, save_certificate=True, save_private_key=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Exports the object as a JSON string. This is useful when using a framework like Django and need to store account
 data as a string in the database.</p>
 <ul>
 <li>
@@ -2663,22 +1679,16 @@ JSON string.</p>
 <p>:raises <code>InvalidDomain</code>: when no valid domains are set.</p>
 </li>
 </ul>
-<h2>Example</h2>
-<p>```python</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>client.export_account(save_certificate=True, save_private_key=True)
-'{"account": {"body": {"key": {"n": "vtByzpW..."}}}}'
-```</p>
-</blockquote>
-</blockquote>
-</blockquote></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-simple_acme_dns.ACMEClient.export_account', this);">Show source &equiv;</a></p>
-  <div id="source-simple_acme_dns.ACMEClient.export_account" class="source">
-    <pre><code>def export_account(self, save_certificate=True, save_private_key=False):
-    """
+<h2 id="example">Example</h2>
+<pre><code class="language-python">&gt;&gt;&gt; client.export_account(save_certificate=True, save_private_key=True)
+'{&quot;account&quot;: {&quot;body&quot;: {&quot;key&quot;: {&quot;n&quot;: &quot;vtByzpW...&quot;}}}}'
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def export_account(self, save_certificate=True, save_private_key=False):
+    &#34;&#34;&#34;
     Exports the object as a JSON string. This is useful when using a framework like Django and need to store account
     data as a string in the database.\n
     - :param `save_certificate` [`bool`]: indicate whether the certificate should also be stored in the
@@ -2688,40 +1698,34 @@ JSON string.</p>
     - :return [`str`]: the current object encoded as a JSON string.\n
     - :raises `InvalidAccount`: when account registration has not been set.\n
     - :raises `InvalidDomain`: when no valid domains are set.\n\n
+
     ## Example\n
     ```python
-    >>> client.export_account(save_certificate=True, save_private_key=True)
-    '{"account": {"body": {"key": {"n": "vtByzpW..."}}}}'
+    &gt;&gt;&gt; client.export_account(save_certificate=True, save_private_key=True)
+    &#39;{&#34;account&#34;: {&#34;body&#34;: {&#34;key&#34;: {&#34;n&#34;: &#34;vtByzpW...&#34;}}}}&#39;
     ```
-    """
+    &#34;&#34;&#34;
     self.__validate_registration__()
     self.__validate_domains__()
+
     # Format our object into a serializable format
     acct_data = {
-        'account': self.account.to_json(),
-        'account_key': self.account_key.json_dumps(),
-        'directory': self.directory,
-        'domains': self.domains,
-        'certificate': self.certificate.decode() if save_certificate else '',
-        'private_key': self.private_key.decode() if save_private_key else ''
+        &#39;account&#39;: self.account.to_json(),
+        &#39;account_key&#39;: self.account_key.json_dumps(),
+        &#39;directory&#39;: self.directory,
+        &#39;domains&#39;: self.domains,
+        &#39;certificate&#39;: self.certificate.decode() if save_certificate else &#39;&#39;,
+        &#39;private_key&#39;: self.private_key.decode() if save_private_key else &#39;&#39;
     }
-    return json.dumps(acct_data)
-</code></pre>
-  </div>
-</div>
 
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="simple_acme_dns.ACMEClient.export_account_to_file">
-    <p>def <span class="ident">export_account_to_file</span>(</p><p>self, path=&#39;.&#39;, name=&#39;account.json&#39;, save_certificate=True, save_private_key=False)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Exports our object as a JSON file.</p>
+    return json.dumps(acct_data)</code></pre>
+</details>
+</dd>
+<dt id="simple_acme_dns.ACMEClient.export_account_to_file"><code class="name flex">
+<span>def <span class="ident">export_account_to_file</span></span>(<span>self, path='.', name='account.json', save_certificate=True, save_private_key=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Exports our object as a JSON file.</p>
 <ul>
 <li>
 <p>:param <code>path</code> [<code>str</code>]: the directory path to save the account file. Defaults to current working directory.</p>
@@ -2742,26 +1746,20 @@ JSON string.</p>
 <p>:raises <code>InvalidPath</code>: when the requested directory path to export the account to does not exist.</p>
 </li>
 </ul>
-<h2>Example</h2>
-<p>```python</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>client.export_account_to_file(
-...     path="/tmp/",
-...     name="my_acme_account.json",
+<h2 id="example">Example</h2>
+<pre><code class="language-python">&gt;&gt;&gt; client.export_account_to_file(
+...     path=&quot;/tmp/&quot;,
+...     name=&quot;my_acme_account.json&quot;,
 ...     save_certificate=True,
 ...     save_private_key=True
 ... )
-```</p>
-</blockquote>
-</blockquote>
-</blockquote></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-simple_acme_dns.ACMEClient.export_account_to_file', this);">Show source &equiv;</a></p>
-  <div id="source-simple_acme_dns.ACMEClient.export_account_to_file" class="source">
-    <pre><code>def export_account_to_file(self, path='.', name='account.json', save_certificate=True, save_private_key=False):
-    """
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def export_account_to_file(self, path=&#39;.&#39;, name=&#39;account.json&#39;, save_certificate=True, save_private_key=False):
+    &#34;&#34;&#34;
     Exports our object as a JSON file.\n
     - :param `path` [`str`]: the directory path to save the account file. Defaults to current working directory.\n
     - :param `name` [`str`]: the file name. Defaults to `account.json`.\n
@@ -2769,44 +1767,37 @@ JSON string.</p>
     - :param `save_private_key` [`bool`]: indicate whether the private key should also be stored in the JSON file.\n
     - :return [`none`]: the file will be created at the specified path if an exception was not raised.\n
     - :raises `InvalidPath`: when the requested directory path to export the account to does not exist.\n\n
+
     ## Example\n
     ```python
-    >>> client.export_account_to_file(
-    ...     path="/tmp/",
-    ...     name="my_acme_account.json",
+    &gt;&gt;&gt; client.export_account_to_file(
+    ...     path=&#34;/tmp/&#34;,
+    ...     name=&#34;my_acme_account.json&#34;,
     ...     save_certificate=True,
     ...     save_private_key=True
     ... )
     ```
-    """
+    &#34;&#34;&#34;
     self.__validate_registration__()
     self.__validate_domains__()
     dir_path = pathlib.Path(path).absolute()
+
     # Ensure our path is an existing directory, throw an error otherwise
     if dir_path.is_dir():
         # Open the file and write our JSON content
-        with open(str(dir_path.joinpath(name)), 'w') as (wa):
+        with open(str(dir_path.joinpath(name)), &#39;w&#39;) as (wa):
             wa.write(self.export_account(save_certificate, save_private_key))
             self.account_path = str(dir_path.joinpath(name))
     else:
-        msg = "Directory at '{path}' does not exist.".format(path=path)
-        raise errors.InvalidPath(msg)
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="simple_acme_dns.ACMEClient.generate_csr">
-    <p>def <span class="ident">generate_csr</span>(</p><p>self)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Generates a new CSR using the object's <code>domains</code> and <code>private_key</code> values.</p>
+        msg = &#34;Directory at &#39;{path}&#39; does not exist.&#34;.format(path=path)
+        raise errors.InvalidPath(msg)</code></pre>
+</details>
+</dd>
+<dt id="simple_acme_dns.ACMEClient.generate_csr"><code class="name flex">
+<span>def <span class="ident">generate_csr</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generates a new CSR using the object's <code>domains</code> and <code>private_key</code> values.</p>
 <ul>
 <li>
 <p>:return [<code>bytes</code>]: the encoded CSR PEM data string. This method will update the <code>csr</code> property of the object
@@ -2819,53 +1810,39 @@ with the same value.</p>
 <p>:raises <code>InvalidPrivateKey</code>: when no <code>private_key</code> exists for this object.</p>
 </li>
 </ul>
-<h2>Example</h2>
-<p>```python</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>client.generate_csr()
+<h2 id="example">Example</h2>
+<pre><code class="language-python">&gt;&gt;&gt; client.generate_csr()
 b'-----BEGIN CERTIFICATE REQUEST-----\nMIHxMIGZAgECMAAwWTATBgckjkn...'
-```</p>
-</blockquote>
-</blockquote>
-</blockquote></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-simple_acme_dns.ACMEClient.generate_csr', this);">Show source &equiv;</a></p>
-  <div id="source-simple_acme_dns.ACMEClient.generate_csr" class="source">
-    <pre><code>def generate_csr(self):
-    """
-    Generates a new CSR using the object's `domains` and `private_key` values.\n
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_csr(self):
+    &#34;&#34;&#34;
+    Generates a new CSR using the object&#39;s `domains` and `private_key` values.\n
     - :return [`bytes`]: the encoded CSR PEM data string. This method will update the `csr` property of the object
     with the same value.\n
     - :raises `InvalidDomain`: when no valid `domains` are set.\n
     - :raises `InvalidPrivateKey`: when no `private_key` exists for this object.\n\n
+
     ## Example\n
     ```python
-    >>> client.generate_csr()
-    b'-----BEGIN CERTIFICATE REQUEST-----\\nMIHxMIGZAgECMAAwWTATBgckjkn...'
+    &gt;&gt;&gt; client.generate_csr()
+    b&#39;-----BEGIN CERTIFICATE REQUEST-----\\nMIHxMIGZAgECMAAwWTATBgckjkn...&#39;
     ```
-    """
+    &#34;&#34;&#34;
     self.__validate_domains__()
     self.__validate_private_key__()
     self.csr = crypto_util.make_csr(self.private_key, self.domains)
-    return self.csr
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="simple_acme_dns.ACMEClient.generate_private_key">
-    <p>def <span class="ident">generate_private_key</span>(</p><p>self, key_type=&#39;ec256&#39;)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Generates a new RSA or EC private key.</p>
+    return self.csr</code></pre>
+</details>
+</dd>
+<dt id="simple_acme_dns.ACMEClient.generate_private_key"><code class="name flex">
+<span>def <span class="ident">generate_private_key</span></span>(<span>self, key_type='ec256')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generates a new RSA or EC private key.</p>
 <ul>
 <li>
 <p>:param <code>key_type</code> [<code>str</code>]: the requested <code>private_key</code> type. Options are: [<code>ec256</code>, <code>ec384</code>, <code>rsa2048</code>,
@@ -2873,49 +1850,44 @@ b'-----BEGIN CERTIFICATE REQUEST-----\nMIHxMIGZAgECMAAwWTATBgckjkn...'
 </li>
 <li>
 <p>:return [<code>bytes</code>]: the encoded private key PEM data string. This method will update the <code>private_key</code> property
- of the object with the same value.</p>
+of the object with the same value.</p>
 </li>
 <li>
 <p>:raises <code>InvalidKeyType</code>: when an unknown/unsupported <code>key_type</code> is requested</p>
 </li>
 </ul>
-<h2>Example</h2>
-<p>```python</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>client.generate_private_key(key_type="ec384")
+<h2 id="example">Example</h2>
+<pre><code class="language-python">&gt;&gt;&gt; client.generate_private_key(key_type=&quot;ec384&quot;)
 b'-----BEGIN EC PRIVATE KEY-----\nMIGkAgEBBDAZRFNLcQdVJmLh42p8F4D92...'
-```</p>
-</blockquote>
-</blockquote>
-</blockquote></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-simple_acme_dns.ACMEClient.generate_private_key', this);">Show source &equiv;</a></p>
-  <div id="source-simple_acme_dns.ACMEClient.generate_private_key" class="source">
-    <pre><code>def generate_private_key(self, key_type='ec256'):
-    """
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_private_key(self, key_type=&#39;ec256&#39;):
+    &#34;&#34;&#34;
     Generates a new RSA or EC private key.\n
     - :param `key_type` [`str`]: the requested `private_key` type. Options are: [`ec256`, `ec384`, `rsa2048`,
     `rsa4098`]\n
     - :return [`bytes`]: the encoded private key PEM data string. This method will update the `private_key` property
      of the object with the same value.\n
     - :raises `InvalidKeyType`: when an unknown/unsupported `key_type` is requested\n\n
+
     ## Example\n
     ```python
-    >>> client.generate_private_key(key_type="ec384")
-    b'-----BEGIN EC PRIVATE KEY-----\\nMIGkAgEBBDAZRFNLcQdVJmLh42p8F4D92...'
+    &gt;&gt;&gt; client.generate_private_key(key_type=&#34;ec384&#34;)
+    b&#39;-----BEGIN EC PRIVATE KEY-----\\nMIGkAgEBBDAZRFNLcQdVJmLh42p8F4D92...&#39;
     ```
-    """
+    &#34;&#34;&#34;
     # Generate a EC256 private key
-    if key_type == 'ec256':
+    if key_type == &#39;ec256&#39;:
         key = ec.generate_private_key(ec.SECP256R1(), default_backend())
         self.private_key = key.private_bytes(
             encoding=Encoding.PEM,
             format=PrivateFormat.TraditionalOpenSSL,
             encryption_algorithm=NoEncryption())
     # Generate a EC384 private key
-    elif key_type == 'ec384':
+    elif key_type == &#39;ec384&#39;:
         key = ec.generate_private_key(ec.SECP384R1(), default_backend())
         self.private_key = key.private_bytes(
             encoding=Encoding.PEM,
@@ -2923,37 +1895,28 @@ b'-----BEGIN EC PRIVATE KEY-----\nMIGkAgEBBDAZRFNLcQdVJmLh42p8F4D92...'
             encryption_algorithm=NoEncryption()
         )
     # Generate a RSA2048 private key
-    elif key_type == 'rsa2048':
+    elif key_type == &#39;rsa2048&#39;:
         key = OpenSSL.crypto.PKey()
         key.generate_key(OpenSSL.crypto.TYPE_RSA, 2048)
         self.private_key = OpenSSL.crypto.dump_privatekey(OpenSSL.crypto.FILETYPE_PEM, key)
     # Generate a RSA4098 private key
-    elif key_type == 'rsa4098':
+    elif key_type == &#39;rsa4098&#39;:
         key = OpenSSL.crypto.PKey()
         key.generate_key(OpenSSL.crypto.TYPE_RSA, 4096)
         self.private_key = OpenSSL.crypto.dump_privatekey(OpenSSL.crypto.FILETYPE_PEM, key)
     # Otherwise, the requested key type is not supported. Throw an error
     else:
-        options = ['ec256', 'ec384', 'rsa2048', 'rsa4098']
-        msg = "Invalid private key rtype '{key_type}'. Options {options}".format(key_type=key_type, options=options)
+        options = [&#39;ec256&#39;, &#39;ec384&#39;, &#39;rsa2048&#39;, &#39;rsa4098&#39;]
+        msg = &#34;Invalid private key rtype &#39;{key_type}&#39;. Options {options}&#34;.format(key_type=key_type, options=options)
         raise errors.InvalidKeyType(msg)
-    return self.private_key
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="simple_acme_dns.ACMEClient.generate_private_key_and_csr">
-    <p>def <span class="ident">generate_private_key_and_csr</span>(</p><p>self, key_type=&#39;ec256&#39;)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Generates a new private key and CSR.</p>
+    return self.private_key</code></pre>
+</details>
+</dd>
+<dt id="simple_acme_dns.ACMEClient.generate_private_key_and_csr"><code class="name flex">
+<span>def <span class="ident">generate_private_key_and_csr</span></span>(<span>self, key_type='ec256')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generates a new private key and CSR.</p>
 <ul>
 <li>
 <p>:param <code>key_type</code> [<code>str</code>]: the requested <code>private_key</code> type. Options are: [<code>ec256</code>, <code>ec384</code>, <code>rsa2048</code>,
@@ -2964,180 +1927,38 @@ b'-----BEGIN EC PRIVATE KEY-----\nMIGkAgEBBDAZRFNLcQdVJmLh42p8F4D92...'
 the <code>private_key</code> and <code>csr</code> properties of this object with the same values.</p>
 </li>
 </ul>
-<h2>Example</h2>
-<p>```python</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>client.generate_private_key_and_csr(key_type="rsa2048")
+<h2 id="example">Example</h2>
+<pre><code class="language-python">&gt;&gt;&gt; client.generate_private_key_and_csr(key_type=&quot;rsa2048&quot;)
 (b'-----BEGIN PRIVATE KEY-----\nMIIEvAIBA...', b'-----BEGIN CERTIFICATE REQUEST-----\nMIHxM...')
-```</p>
-</blockquote>
-</blockquote>
-</blockquote></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-simple_acme_dns.ACMEClient.generate_private_key_and_csr', this);">Show source &equiv;</a></p>
-  <div id="source-simple_acme_dns.ACMEClient.generate_private_key_and_csr" class="source">
-    <pre><code>def generate_private_key_and_csr(self, key_type='ec256'):
-    """
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_private_key_and_csr(self, key_type=&#39;ec256&#39;):
+    &#34;&#34;&#34;
     Generates a new private key and CSR.\n
     - :param `key_type` [`str`]: the requested `private_key` type. Options are: [`ec256`, `ec384`, `rsa2048`,
     `rsa4098`]\n
     - :return [`tuple`]: first value contains the key, the second value contains the CSR. This method will update
     the `private_key` and `csr` properties of this object with the same values.\n\n
+
     ## Example\n
     ```python
-    >>> client.generate_private_key_and_csr(key_type="rsa2048")
-    (b'-----BEGIN PRIVATE KEY-----\\nMIIEvAIBA...', b'-----BEGIN CERTIFICATE REQUEST-----\\nMIHxM...')
+    &gt;&gt;&gt; client.generate_private_key_and_csr(key_type=&#34;rsa2048&#34;)
+    (b&#39;-----BEGIN PRIVATE KEY-----\\nMIIEvAIBA...&#39;, b&#39;-----BEGIN CERTIFICATE REQUEST-----\\nMIHxM...&#39;)
     ```
-    """
+    &#34;&#34;&#34;
     self.generate_private_key(key_type=key_type)
     self.generate_csr()
-    return self.private_key, self.csr
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="simple_acme_dns.ACMEClient.load_account">
-    <p>def <span class="ident">load_account</span>(</p><p>json_data)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Loads an existing account from a JSON data string created by the <code>export_account()</code> method.</p>
-<ul>
-<li>
-<p>:param <code>json_data</code> [<code>str</code>]: the JSON account data string.</p>
-</li>
-<li>
-<p>:return [<code>ACMEClient</code>]: the loaded ACMEClient object.</p>
-</li>
-</ul>
-<h2>Example</h2>
-<p>```python</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>client = simple_acme_dns.ACMEClient.load_account('{"account": {"body": {"key": {"n": "vtByzpW..."}}}}')
-```</p>
-</blockquote>
-</blockquote>
-</blockquote></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-simple_acme_dns.ACMEClient.load_account', this);">Show source &equiv;</a></p>
-  <div id="source-simple_acme_dns.ACMEClient.load_account" class="source">
-    <pre><code>@staticmethod
-def load_account(json_data):
-    """
-    Loads an existing account from a JSON data string created by the `export_account()` method.\n
-    - :param `json_data` [`str`]: the JSON account data string.\n
-    - :return [`ACMEClient`]: the loaded ACMEClient object.\n\n
-    ## Example\n
-    ```python
-    >>> client = simple_acme_dns.ACMEClient.load_account('{"account": {"body": {"key": {"n": "vtByzpW..."}}}}')
-    ```
-    """
-    acct_data = json.loads(json_data)
-    obj = ACMEClient()
-    # Format the serialized data back into the object
-    obj.directory = acct_data.get('directory', None)
-    obj.domains = acct_data.get('domains', [])
-    obj.certificate = acct_data.get('certificate', '').encode()
-    obj.private_key = acct_data.get('private_key', '').encode()
-    obj.email = acct_data['account']['body']['contact'][0].replace('mailto:', '')
-    obj.account = messages.RegistrationResource.json_loads(json.dumps(acct_data['account']))
-    obj.account_key = jose.JWKRSA.json_loads(acct_data['account_key'])
-    return obj
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="simple_acme_dns.ACMEClient.load_account_from_file">
-    <p>def <span class="ident">load_account_from_file</span>(</p><p>filepath)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Loads an existing account from a JSON file created by the <code>export_account_to_file()</code> method.</p>
-<ul>
-<li>
-<p>:param <code>filepath</code> [<code>str</code>]: the file path to the account JSON file.</p>
-</li>
-<li>
-<p>:return [<code>ACMEClient</code>]: the loaded ACMEClient object.</p>
-</li>
-<li>
-<p>:raises <code>InvalidPath</code>: when the file path of the account JSON or key does not exist.</p>
-</li>
-</ul>
-<h2>Example</h2>
-<p>```python</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>client = simple_acme_dns.ACMEClient.load_account('/tmp/my_acme_account.json')
-```</p>
-</blockquote>
-</blockquote>
-</blockquote></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-simple_acme_dns.ACMEClient.load_account_from_file', this);">Show source &equiv;</a></p>
-  <div id="source-simple_acme_dns.ACMEClient.load_account_from_file" class="source">
-    <pre><code>@staticmethod
-def load_account_from_file(filepath):
-    """
-    Loads an existing account from a JSON file created by the `export_account_to_file()` method.\n
-    - :param `filepath` [`str`]: the file path to the account JSON file.\n
-    - :return [`ACMEClient`]: the loaded ACMEClient object.\n
-    - :raises `InvalidPath`: when the file path of the account JSON or key does not exist.\n
-    ## Example\n
-    ```python
-    >>> client = simple_acme_dns.ACMEClient.load_account('/tmp/my_acme_account.json')
-    ```
-    """
-    filepath = pathlib.Path(filepath).absolute()
-    # Ensure our file exists, throw an error otherwise
-    if filepath.exists():
-        # Open our file and read it's contents.
-        with open(filepath, 'r') as (rj):
-            json_data = rj.read()
-        # Load contents into a new object.
-        obj = ACMEClient.load_account(json_data)
-        obj.account_path = filepath
-    else:
-        raise errors.InvalidPath("No JSON account file found at '{path}'".format(path=(str(filepath))))
-    # Re-initialize the ACME client and registration
-    obj.__net__ = client.ClientNetwork(obj.account_key, user_agent='simple_acme_dns/1.0.0')
-    obj.__directory__ = messages.Directory.from_json(obj.__net__.get(obj.directory).json())
-    obj.__client__ = client.ClientV2(obj.__directory__, net=obj.__net__)
-    obj.account = obj.__client__.query_registration(obj.account)
-    return obj
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="simple_acme_dns.ACMEClient.new_account">
-    <p>def <span class="ident">new_account</span>(</p><p>self)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Registers a new ACME account at the set ACME <code>directory</code> URL. By running this method, you are agreeing to the
+    return self.private_key, self.csr</code></pre>
+</details>
+</dd>
+<dt id="simple_acme_dns.ACMEClient.new_account"><code class="name flex">
+<span>def <span class="ident">new_account</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Registers a new ACME account at the set ACME <code>directory</code> URL. By running this method, you are agreeing to the
 ACME servers terms of use.</p>
 <ul>
 <li>
@@ -3150,59 +1971,48 @@ ACME servers terms of use.</p>
 <p>:raises <code>InvalidEmail</code>: if this object does not contain a valid email address to use during registration.</p>
 </li>
 </ul>
-<h2>Example</h2>
-<p>```python</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>client.new_account()
-```</p>
-</blockquote>
-</blockquote>
-</blockquote></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-simple_acme_dns.ACMEClient.new_account', this);">Show source &equiv;</a></p>
-  <div id="source-simple_acme_dns.ACMEClient.new_account" class="source">
-    <pre><code>def new_account(self):
-    """
+<h2 id="example">Example</h2>
+<pre><code class="language-python">&gt;&gt;&gt; client.new_account()
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def new_account(self):
+    &#34;&#34;&#34;
     Registers a new ACME account at the set ACME `directory` URL. By running this method, you are agreeing to the
     ACME servers terms of use.\n
     - :return [`none`]: the account and account_key properties will be updated with the new account registration.\n
     - :raises `InvalidDirectory`: if this object does not contain a valid ACME directory URL.\n
     - :raises `InvalidEmail`: if this object does not contain a valid email address to use during registration.\n\n
+
     ## Example\n
     ```python
-    >>> client.new_account()
+    &gt;&gt;&gt; client.new_account()
     ```
-    """
+    &#34;&#34;&#34;
     self.__validate_directory__()
     self.__validate_email__()
+
     # Generate a new RSA2048 account key
     rsa_key = rsa.generate_private_key(public_exponent=65537, key_size=2048, backend=(default_backend()))
     self.account_key = jose.JWKRSA(key=rsa_key)
+
     # Initialize our ACME client object
-    self.__net__ = client.ClientNetwork(self.account_key, user_agent='simple_acme_dns/1.0.0')
+    self.__net__ = client.ClientNetwork(self.account_key, user_agent=&#39;simple_acme_dns/1.0.0&#39;)
     self.__directory__ = messages.Directory.from_json(self.__net__.get(self.directory).json())
     self.__client__ = client.ClientV2(self.__directory__, net=self.__net__)
+
     # Complete registration
     registration = messages.NewRegistration.from_data(email=self.email, terms_of_service_agreed=True)
-    self.account = self.__client__.new_account(registration)
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="simple_acme_dns.ACMEClient.request_certificate">
-    <p>def <span class="ident">request_certificate</span>(</p><p>self, wait=0, timeout=90)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Requests a final verification answer from the ACME server and requests the certificate if verification was
+    self.account = self.__client__.new_account(registration)</code></pre>
+</details>
+</dd>
+<dt id="simple_acme_dns.ACMEClient.request_certificate"><code class="name flex">
+<span>def <span class="ident">request_certificate</span></span>(<span>self, wait=0, timeout=90)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Requests a final verification answer from the ACME server and requests the certificate if verification was
 successful. If you request the certificate before DNS has propagated and verification fails, you must start
 the verification process over entirely by requesting new verification tokens.</p>
 <ul>
@@ -3216,25 +2026,20 @@ records exist and would rather wait a specific amount of time.</p>
 of this object with the same value.</p>
 </li>
 <li>
-<p>:raises <code>InvalidAccount</code>:  when account registration has not been set.</p>
+<p>:raises <code>InvalidAccount</code>:
+when account registration has not been set.</p>
 </li>
 </ul>
-<h2>Example</h2>
-<p>```python</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>client.request_certificate()
+<h2 id="example">Example</h2>
+<pre><code class="language-python">&gt;&gt;&gt; client.request_certificate()
 b'-----BEGIN CERTIFICATE-----\nMIIEfzCCA2egAwI...
-```</p>
-</blockquote>
-</blockquote>
-</blockquote></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-simple_acme_dns.ACMEClient.request_certificate', this);">Show source &equiv;</a></p>
-  <div id="source-simple_acme_dns.ACMEClient.request_certificate" class="source">
-    <pre><code>def request_certificate(self, wait=0, timeout=90):
-    """
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def request_certificate(self, wait=0, timeout=90):
+    &#34;&#34;&#34;
     Requests a final verification answer from the ACME server and requests the certificate if verification was
     successful. If you request the certificate before DNS has propagated and verification fails, you must start
     the verification process over entirely by requesting new verification tokens.\n
@@ -3244,38 +2049,32 @@ b'-----BEGIN CERTIFICATE-----\nMIIEfzCCA2egAwI...
     - :return [`bytes`]: the PEM encoded certificate. This method will update the `certificate` and `csr` property
     of this object with the same value.\n
     - :raises `InvalidAccount`:  when account registration has not been set.\n\n
+
     ## Example\n
     ```python
-    >>> client.request_certificate()
-    b'-----BEGIN CERTIFICATE-----\\nMIIEfzCCA2egAwI...
+    &gt;&gt;&gt; client.request_certificate()
+    b&#39;-----BEGIN CERTIFICATE-----\\nMIIEfzCCA2egAwI...
     ```
-    """
+    &#34;&#34;&#34;
     self.__validate_verification_tokens__()
     time.sleep(wait)
     deadline = datetime.datetime.now() + datetime.timedelta(seconds=timeout)
+
     # For each challenge, request an answer.
     for i, c in enumerate(self.__challenges__):
         self.__answers__.append(self.__client__.answer_challenge(c, self.__responses__[i]))
+
     # Request our final order and save the certificate if successful
     self.__final_order__ = self.__client__.poll_and_finalize(self.__order__, deadline=deadline)
     self.certificate = self.__final_order__.fullchain_pem.encode()
-    return self.certificate
-</code></pre>
-  </div>
-</div>
-
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="simple_acme_dns.ACMEClient.request_verification_tokens">
-    <p>def <span class="ident">request_verification_tokens</span>(</p><p>self)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Requests verification tokens from the ACME server for each <code>domains</code> value. These tokens must be uploaded as
+    return self.certificate</code></pre>
+</details>
+</dd>
+<dt id="simple_acme_dns.ACMEClient.request_verification_tokens"><code class="name flex">
+<span>def <span class="ident">request_verification_tokens</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Requests verification tokens from the ACME server for each <code>domains</code> value. These tokens must be uploaded as
 a DNS TXT record for each corresponding domain to complete verification.</p>
 <ul>
 <li>
@@ -3285,65 +2084,53 @@ a DNS TXT record for each corresponding domain to complete verification.</p>
 <p>:raises <code>InvalidAccount</code>: when account registration has not been set.</p>
 </li>
 </ul>
-<h2>Example</h2>
-<p>```python</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>client.request_verification_tokens()
+<h2 id="example">Example</h2>
+<pre><code class="language-python">&gt;&gt;&gt; client.request_verification_tokens()
 [
     ('_acme-challenge.test1.example.com', 'moY32lkdsZ3VWHM1mdM...'),
     ('_acme-challenge.test2.example.com', 'asldfkjslweietj23_b...')
 ]
-```</p>
-</blockquote>
-</blockquote>
-</blockquote></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-simple_acme_dns.ACMEClient.request_verification_tokens', this);">Show source &equiv;</a></p>
-  <div id="source-simple_acme_dns.ACMEClient.request_verification_tokens" class="source">
-    <pre><code>def request_verification_tokens(self):
-    """
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def request_verification_tokens(self):
+    &#34;&#34;&#34;
     Requests verification tokens from the ACME server for each `domains` value. These tokens must be uploaded as
     a DNS TXT record for each corresponding domain to complete verification.\n
-    - :return [`list`]: a list of tuples containing the challenge FQDN and it's corresponding verification token.\n
+    - :return [`list`]: a list of tuples containing the challenge FQDN and it&#39;s corresponding verification token.\n
     - :raises `InvalidAccount`: when account registration has not been set.\n\n
+
     ## Example\n
     ```python
-    >>> client.request_verification_tokens()
+    &gt;&gt;&gt; client.request_verification_tokens()
     [
-        ('_acme-challenge.test1.example.com', 'moY32lkdsZ3VWHM1mdM...'),
-        ('_acme-challenge.test2.example.com', 'asldfkjslweietj23_b...')
+        (&#39;_acme-challenge.test1.example.com&#39;, &#39;moY32lkdsZ3VWHM1mdM...&#39;),
+        (&#39;_acme-challenge.test2.example.com&#39;, &#39;asldfkjslweietj23_b...&#39;)
     ]
     ```
-    """
+    &#34;&#34;&#34;
     self.__validate_registration__()
     self.__responses__ = []
     self.__verification_tokens__ = []
     self.__order__ = self.__client__.new_order(self.csr)
     self.__challenges__ = self.__verify_challenge__()
+
     # Loop through each of our challenges and extract the response and verification token from each
     for i, c in enumerate(self.__challenges__):
         response, validation = c.response_and_validation(self.__client__.net.key)
         self.__responses__.append(response)
         self.__verification_tokens__.append(validation)
-    return self.__format_verification_tokens__()
-</code></pre>
-  </div>
-</div>
 
-  </div>
-  
-            
-  <div class="item">
-    <div class="name def" id="simple_acme_dns.ACMEClient.revoke_certificate">
-    <p>def <span class="ident">revoke_certificate</span>(</p><p>self, reason=0)</p>
-    </div>
-    
-
-    
-  
-    <div class="desc"><p>Attempts to revoke the existing certificate from the issuing ACME server.</p>
+    return self.__format_verification_tokens__()</code></pre>
+</details>
+</dd>
+<dt id="simple_acme_dns.ACMEClient.revoke_certificate"><code class="name flex">
+<span>def <span class="ident">revoke_certificate</span></span>(<span>self, reason=0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Attempts to revoke the existing certificate from the issuing ACME server.</p>
 <ul>
 <li>
 <p>:param <code>reason</code> [<code>int</code>]: the numeric reason for revocation identifier.</p>
@@ -3358,193 +2145,77 @@ a DNS TXT record for each corresponding domain to complete verification.</p>
 <p>:raises <code>acme.errors.ConflictError</code>: if the certificate is already revoked.</p>
 </li>
 </ul>
-<h2>Example</h2>
-<p>```python</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>client.revoke_certificate()
-```</p>
-</blockquote>
-</blockquote>
-</blockquote></div>
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-simple_acme_dns.ACMEClient.revoke_certificate', this);">Show source &equiv;</a></p>
-  <div id="source-simple_acme_dns.ACMEClient.revoke_certificate" class="source">
-    <pre><code>def revoke_certificate(self, reason=0):
-    """
+<h2 id="example">Example</h2>
+<pre><code class="language-python">&gt;&gt;&gt; client.revoke_certificate()
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def revoke_certificate(self, reason=0):
+    &#34;&#34;&#34;
     Attempts to revoke the existing certificate from the issuing ACME server.\n
     - :param `reason` [`int`]: the numeric reason for revocation identifier.\n
     - :return [`none`]:\n
     - :raises `InvalidCertificate`: if this object does not contain a certificate.\n
     - :raises `acme.errors.ConflictError`: if the certificate is already revoked.\n\n
+
     ## Example\n
     ```python
-    >>> client.revoke_certificate()
+    &gt;&gt;&gt; client.revoke_certificate()
     ```
-    """
+    &#34;&#34;&#34;
     self.__validate_certificate__()
+
     # Load the certificate crypto object and request revocation from the ACME server
     cert_obj = jose.ComparableX509(OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, self.certificate))
-    self.__client__.revoke(cert_obj, reason)
-</code></pre>
-  </div>
+    self.__client__.revoke(cert_obj, reason)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
 </div>
-
-  </div>
-  
-          <h3>Instance variables</h3>
-            <div class="item">
-            <p id="simple_acme_dns.ACMEClient.DNS_LABEL" class="name">var <span class="ident">DNS_LABEL</span></p>
-            
-
-            
-  
-  <div class="source_cont">
-</div>
-
-            </div>
-            <div class="item">
-            <p id="simple_acme_dns.ACMEClient.account" class="name">var <span class="ident">account</span></p>
-            
-
-            
-  
-  <div class="source_cont">
-</div>
-
-            </div>
-            <div class="item">
-            <p id="simple_acme_dns.ACMEClient.account_key" class="name">var <span class="ident">account_key</span></p>
-            
-
-            
-  
-  <div class="source_cont">
-</div>
-
-            </div>
-            <div class="item">
-            <p id="simple_acme_dns.ACMEClient.account_path" class="name">var <span class="ident">account_path</span></p>
-            
-
-            
-  
-  <div class="source_cont">
-</div>
-
-            </div>
-            <div class="item">
-            <p id="simple_acme_dns.ACMEClient.certificate" class="name">var <span class="ident">certificate</span></p>
-            
-
-            
-  
-  <div class="source_cont">
-</div>
-
-            </div>
-            <div class="item">
-            <p id="simple_acme_dns.ACMEClient.csr" class="name">var <span class="ident">csr</span></p>
-            
-
-            
-  
-  <div class="source_cont">
-</div>
-
-            </div>
-            <div class="item">
-            <p id="simple_acme_dns.ACMEClient.directory" class="name">var <span class="ident">directory</span></p>
-            
-
-            
-  
-  <div class="source_cont">
-</div>
-
-            </div>
-            <div class="item">
-            <p id="simple_acme_dns.ACMEClient.domains" class="name">var <span class="ident">domains</span></p>
-            
-
-            
-  
-  <div class="source_cont">
-</div>
-
-            </div>
-            <div class="item">
-            <p id="simple_acme_dns.ACMEClient.email" class="name">var <span class="ident">email</span></p>
-            
-
-            
-  
-  <div class="source_cont">
-</div>
-
-            </div>
-            <div class="item">
-            <p id="simple_acme_dns.ACMEClient.nameservers" class="name">var <span class="ident">nameservers</span></p>
-            
-
-            
-  
-  <div class="source_cont">
-</div>
-
-            </div>
-            <div class="item">
-            <p id="simple_acme_dns.ACMEClient.private_key" class="name">var <span class="ident">private_key</span></p>
-            
-
-            
-  
-  <div class="source_cont">
-</div>
-
-            </div>
-            <div class="item">
-            <p id="simple_acme_dns.ACMEClient.verification_tokens" class="name">var <span class="ident">verification_tokens</span></p>
-            
-
-            
-  
-  <div class="source_cont">
-</div>
-
-            </div>
-      </div>
-      </div>
-
-    <h2 class="section-title" id="header-submodules">Sub-modules</h2>
-      <div class="item">
-      <p class="name"><a href="errors/index.html">simple_acme_dns.errors</a></p>
-      
-  
-
-      </div>
-      <div class="item">
-      <p class="name"><a href="tools/index.html">simple_acme_dns.tools</a></p>
-      
-  
-
-      </div>
-  </section>
-
-    </article>
-  <div class="clear"> </div>
-  <footer id="footer">
-    <p>
-      Documentation generated by
-      <a href="https://github.com/BurntSushi/pdoc">pdoc 0.3.2</a>
-    </p>
-
-    <p>pdoc is in the public domain with the
-      <a href="http://unlicense.org">UNLICENSE</a></p>
-
-    <p>Design by <a href="http://nadh.in">Kailash Nadh</a></p>
-  </footer>
-</div>
+<ul id="index">
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="simple_acme_dns.errors" href="errors/index.html">simple_acme_dns.errors</a></code></li>
+<li><code><a title="simple_acme_dns.tools" href="tools/index.html">simple_acme_dns.tools</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="simple_acme_dns.ACMEClient" href="#simple_acme_dns.ACMEClient">ACMEClient</a></code></h4>
+<ul class="">
+<li><code><a title="simple_acme_dns.ACMEClient.check_dns_propagation" href="#simple_acme_dns.ACMEClient.check_dns_propagation">check_dns_propagation</a></code></li>
+<li><code><a title="simple_acme_dns.ACMEClient.deactivate_account" href="#simple_acme_dns.ACMEClient.deactivate_account">deactivate_account</a></code></li>
+<li><code><a title="simple_acme_dns.ACMEClient.export_account" href="#simple_acme_dns.ACMEClient.export_account">export_account</a></code></li>
+<li><code><a title="simple_acme_dns.ACMEClient.export_account_to_file" href="#simple_acme_dns.ACMEClient.export_account_to_file">export_account_to_file</a></code></li>
+<li><code><a title="simple_acme_dns.ACMEClient.generate_csr" href="#simple_acme_dns.ACMEClient.generate_csr">generate_csr</a></code></li>
+<li><code><a title="simple_acme_dns.ACMEClient.generate_private_key" href="#simple_acme_dns.ACMEClient.generate_private_key">generate_private_key</a></code></li>
+<li><code><a title="simple_acme_dns.ACMEClient.generate_private_key_and_csr" href="#simple_acme_dns.ACMEClient.generate_private_key_and_csr">generate_private_key_and_csr</a></code></li>
+<li><code><a title="simple_acme_dns.ACMEClient.load_account" href="#simple_acme_dns.ACMEClient.load_account">load_account</a></code></li>
+<li><code><a title="simple_acme_dns.ACMEClient.load_account_from_file" href="#simple_acme_dns.ACMEClient.load_account_from_file">load_account_from_file</a></code></li>
+<li><code><a title="simple_acme_dns.ACMEClient.new_account" href="#simple_acme_dns.ACMEClient.new_account">new_account</a></code></li>
+<li><code><a title="simple_acme_dns.ACMEClient.request_certificate" href="#simple_acme_dns.ACMEClient.request_certificate">request_certificate</a></code></li>
+<li><code><a title="simple_acme_dns.ACMEClient.request_verification_tokens" href="#simple_acme_dns.ACMEClient.request_verification_tokens">request_verification_tokens</a></code></li>
+<li><code><a title="simple_acme_dns.ACMEClient.revoke_certificate" href="#simple_acme_dns.ACMEClient.revoke_certificate">revoke_certificate</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
 </body>
 </html>
